@@ -1,0 +1,107 @@
+﻿
+
+@* Modal Question *@
+
+<div class="modal-backdrop fade show" id="backModalQuestion" style="z-index:9998;display:none"></div>
+<div class="modal fade" id="modalQuestion" tabindex="-1" role="dialog" style="z-index:9999;" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width:100%; top:25%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalQuestion">Fogacoop IRL</h5>
+            </div>
+            <div class="modal-body">
+                <p id="messageModalQuestion"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" id="btnNoModalQuestion">No</button>
+                <button type="button" class="btn btn-primary" id="btnSiModalQuestion">Sí</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal Partial*@
+<div class="modal fade mouseevent" id="modal-partial" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width:100%; top:25%;">
+        <div class="modal-content" id="modal-partial-content">
+        </div>
+    </div>
+</div>
+
+@* Modal Loading *@
+<div class="modal-backdrop fade show" id="modal-loading-back" style="z-index:999998;display:none"></div>
+<div class="modal bd-example-modal-lg" id="modal-loading" data-backdrop="static" data-keyboard="false" tabindex="-1" style="z-index:999999;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" id="modal-loading-content">
+            <div class="spinner-border text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <span id="modal-loading-msg"></span>
+        </div>
+    </div>
+</div>
+
+@* Modal Question Session *@
+<div class="modal-backdrop fade show" id="backModalQuestionSession" style="z-index:999999;display:none"></div>
+<div class="modal fade" id="modalQuestionSession" tabindex="-1" role="dialog" style="z-index:999999;" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width:100%; top:25%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalQuestionSession">Advertencia</h5>
+            </div>
+            <div class="modal-body">
+                <p>¿Sigues ahí? La sesión será cerrada automaticamente en <label style="font-weight:bold" id="timerModalQuestionSession"></label></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" onclick="NoReactiveSession()">Cerrar sesión</button>
+                <button type="button" class="btn btn-primary" onclick="YesReactiveSession()">Sigo acá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* Modal Contrast Screen *@
+<div class="modal fade" id="modalGel" tabindex="-1" role="dialog" style="z-index:99999;" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalGel">Personaliza tu visualización</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="h5">Tamaño de la fuente</p>
+                        <button aria-label="Increase Font" id="accessibility-font" class="btn btn-outline-success js-accessibility">+A</button>
+                    </div>
+                    <div class="col-6">
+                        <p class="h5">Contraste de la página</p>
+                        <button aria-label="Add Contrast" id="accessibility-contrast" class="btn btn-outline-primary js-accessibility"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="$('#modalGel').modal('hide');">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top:0;">
+    <div class="modal-dialog" role="document" style="width:100%; top:25%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Seguro que desea cerrar sesión?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            @*<div class="modal-body">Si</div>*@
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="@Url.Action("LogOff","Login")">Si, salir.</a>
+            </div>
+        </div>
+    </div>
+</div>

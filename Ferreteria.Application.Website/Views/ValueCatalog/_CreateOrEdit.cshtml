@@ -1,0 +1,102 @@
+﻿@model Core.Application.Website.Models.ValuesCatalogModel
+
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+
+    <form class="" asp-action="CreateOrUpdate" data-ajax="true" data-ajax-method="POST" id="formvaluecatalogs">                
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CatalogId)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+        
+        <input type="hidden" name="IsEncrypted" id="hidden_IsEncrypted" value="false" />
+
+        <div class="form-group row">
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "col-form-label" })
+            </div>
+            <div class="col-sm-9">
+                @if (Model != null && Model.Id != Guid.Empty)
+                {
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", autocomplete = "off" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control required", autocomplete = "off", @maxlength = 50 } })
+                }
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label" })
+            </div>
+            <div class="col-sm-9">
+                @if (Model.IsEncrypted)
+                {
+                    <input class="form-control" id="NameDisplay" name="NameDisplay" autocomplete="off" readonly="readonly" value="[Cifrado]" />
+                    @Html.HiddenFor(model => model.Name)
+                }
+                else
+                {
+                    @Html.TextAreaFor(model => model.Name,  htmlAttributes : new { @class = "form-control required", autocomplete = "off", @maxlength = 2000, @rows = "4", @cols = "10" } )
+                }
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-form-label" })
+            </div>
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control required", autocomplete = "off", @maxlength = 1000} })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.IsEncrypted, htmlAttributes: new { @class = "col-form-label" })
+            </div>
+            <div class="col-sm-9">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="" @Html.Raw(Model?.IsEncrypted == true ? "checked" : "") id="IsEncrypted">
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-valuecatalog" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="saveValueCatalog();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+
+    @*@Html.ActionLink("Cancelar", null, null, new { @class = "btn btn-outline-dark", data_dismiss = "modal", data_tippy_content = "Pulse para Cancelar." })
+    <button type="button" class="btn btn-primary" onclick="$('#btn-create-valuecatalog').click();" data-tippy-content="Pulse para Guardar.">Guardar</button>*@
+</div>
+
+<script type="text/javascript">
+    $('#IsEncrypted').on('change', function () {
+        $('#hidden_IsEncrypted').val($(this).is(':checked'))
+    });
+
+    $('#hidden_IsEncrypted').val($('#IsEncrypted').is(':checked'));
+
+</script>

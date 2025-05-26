@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _accessor;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Sistema de Gestión de Inventario</title>
+	<link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/x-icon" href="~/img/maisoft_icon.ico">
+	<link rel="stylesheet" href="~/css/sb-admin-2.css" />
+	<link href="~/css/bootstrap/bootstrap-datepicker.min.css" rel="stylesheet" />
+	@await RenderSectionAsync("Styles", required: false)
+
+	<script src="~/vendor/jquery/jquery.min.js"></script>
+	<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="~/vendor/bootstrap/js/bootstrap-notify.js"></script>
+	<link href="~/css/validation.css" rel="stylesheet" asp-append-version="true" />
+	<link href="~/css/timepicker.css" rel="stylesheet" asp-append-version="true" />
+	<link href="~/css/site.css" rel="stylesheet" />
+	<link href="~/vendor/jquery-multiselect/dist/css/bootstrap-multiselect.css" rel="stylesheet" />
+	<link href="~/vendor/jquery-datetimepicker/dist/css/jquery.datetimepicker.min.css" rel="stylesheet" />
+
+	<!-- Core plugin JavaScript-->
+	<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/popper.js"></script>
+	<script src="~/js/tippy.js"></script>
+	<link href="~/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<script src="~/vendor/select2/js/select2.min.js"></script>
+	<script src="~/js/moment.min.js"></script>
+	<script src="~/vendor/jquery-multiselect/dist/js/bootstrap-multiselect.min.js"></script>
+	<script src="~/vendor/jquery-datetimepicker/dist/js/jquery.datetimepicker.full.min.js"></script>
+</head>
+
+<body id="bodyAll" class="bg-white">
+
+	<main role="main">
+		<partial name="_ModalPartial" />
+		<div id="wrapper">
+			<partial name="_SideBar" />
+
+			<!-- Content Wrapper -->
+			<div id="content-wrapper" class="d-flex flex-column mouseevent">
+
+				<!-- Main Content -->
+				<div id="content">
+					<partial name="_TopBar" />
+					<input type="hidden" id="baseUrl" value="@ViewBag.UrlBase" />
+					<input type="hidden" id="timeoutSessionInMilliseconds" value="@Html.Raw(Context.Session.GetInt32("timeoutSessionInMilliseconds"))" />
+					<input type="hidden" id="timeWaitingForAnswerInactivitySeconds" value="@Html.Raw(Context.Session.GetInt32("timeWaitingForAnswerInactivitySeconds"))" />
+					@RenderBody()
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer class="footer">
+		<div class="container-fluid d-flex justify-content-end">
+			<a href="#" target="_blank">MaiSoft © Todos los derechos reservados @DateTime.Now.Year</a>
+		</div>
+	</footer>
+
+	<!-- Custom scripts for all pages-->
+	<script src="~/js/sb-admin-2.min.js" asp-append-version="true"></script>
+	<script src="~/vendor/bootstrap/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/js/jquery.unobtrusive-ajax.js"></script>
+	<script src="~/js/jquery.numeric.js"></script>
+	<script src="~/js/core/Login/sessionManagement.js"></script>
+	<script src="~/vendor/jquery-mask/jquery.mask.min.js"></script>
+
+	@if (IsSectionDefined("Scripts"))
+	{
+		<!-- Page level plugins -->
+		@await RenderSectionAsync("Scripts", required: false)
+	}
+	@if (IsSectionDefined("Css"))
+	{
+		@await RenderSectionAsync("Css", required: false)
+	}
+
+	<!-- Start screen components -->
+	<script>
+		$(function () {
+			CreateAllTooltips();
+		});
+	</script>
+</body>
+</html>

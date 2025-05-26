@@ -1,0 +1,139 @@
+﻿@model Core.Application.Website.Models.CooperativeInfoModel
+
+@{
+    ViewBag.Title = "Información Cuenta Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/validation.css" rel="stylesheet" asp-append-version="true" />
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-inline">
+                        <h4 class="card-title ">
+                            Información Cuenta Usuario
+                        </h4>
+
+                    </div>
+                    <p class="card-category">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form id="formUpdateInfoUser" class="form-horizontal">
+                <br />
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.CooperativeCode, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.CooperativeCode, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100, @readonly = true })
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control required", @maxlength = 80 } })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.TaxId, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.TaxId, new { @class = "form-control col-md-12 col-xs-12 required inputPositiveInput", @maxlength = 20, @readonly = true })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.Acronym, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.Acronym, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100 })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control col-md-12 col-xs-12 required inputPositiveInput", @maxlength = 20 })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100 })
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.Municipality, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.Municipality, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100 })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.Department, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100 })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.CooperativeCode, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.CooperativeCode, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100 })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.Website, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100 })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.CorporateEmail, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.TextBoxFor(model => model.CorporateEmail, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 50, @readonly = true })
+                        </div>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 ml-2">
+                        <input type="button" value="Actualizar Información" class="btn btn-primary" onclick="updateInfoUser();" data-tippy-content="Pulse para Actualizar Información." />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/core/Login/Login.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(function () {
+        CreateAllTooltips();
+        initValidations()
+
+        $('#Name').on('input', function () {
+            var inputValue = $(this).val();
+            // Expresión regular para permitir solo letras, tildes y espacios
+            var regex = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/;
+            // Validar el valor del input con la expresión regular
+            if (!regex.test(inputValue)) {
+                $(this).val(inputValue.replace(/[^a-zA-ZáéíóúÁÉÍÓÚ\s]/g, ''));
+            }
+        });
+    });
+
+    $(function () {
+        $('#omnicanalNav').addClass('active');
+        $('#omnicanal').addClass('show');
+        $('#nav-info-cooperative').addClass('active');
+    });
+
+    document.addEventListener('reloadend', function (e) {
+        CreateAllTooltips();
+        addKeyboardEvents();
+        hideLoading();
+    });
+</script>

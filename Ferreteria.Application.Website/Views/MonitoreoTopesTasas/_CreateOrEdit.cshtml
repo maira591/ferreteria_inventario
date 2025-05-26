@@ -1,0 +1,66 @@
+﻿@model Core.Application.Website.Models.Monitoreo.TopesTasasModel
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="Format" data-ajax="true" data-ajax-method="POST" id="formatrangosvalores">
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Clasificacion, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.Clasificacion, (IEnumerable<SelectListItem>)ViewBag.Clasifications, new { @class = "form-control col-md-12 col-xs-12 required", onchange = "TopesTasas.LoadLastEndDate(this.value)" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.TasaUsura, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.TasaUsura, new { @class = "form-control col-md-12 col-xs-12 inputPositiveInput2d required", placeholder = "Digite la Tasa de Usura", @maxlength = 100 })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.FecIni, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+
+                    @{
+                        string fechaInicio = (Model.FecIni?.Year != 1 ? Model.FecIni?.ToString("dd/MM/yyyy") : "");
+                    }
+                    <input type="hidden" value="@fechaInicio" id="hdf_FechaInicio" />
+                    <div class="col-md-12 col-sm-12 col-xs-12 dp-date">
+                        @Html.TextBoxFor(model => model.FecIni, new { @class = "form-control col-md-12 col-xs-12 required", onchange = "TopesTasas.GetFecFin(this.value);" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.FecFin, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+
+                    @{
+                        string fechaFin = (Model.FecFin?.Year != 1 ? Model.FecFin?.ToString("dd/MM/yyyy") : "");
+                    }
+                    <input type="hidden" value="@fechaFin" id="hdf_FechaFin" />
+                    <div class="col-md-12 col-sm-12 col-xs-12 dp-date">
+                        @Html.TextBoxFor(model => model.FecFin, new { @class = "form-control col-md-12 col-xs-12 required" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-format" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="TopesTasas.Save();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>

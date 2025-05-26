@@ -1,0 +1,78 @@
+﻿@model Core.Application.Website.Models.Monitoreo.CuentaPucSolidModel
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="Format" data-ajax="true" data-ajax-method="POST" id="formentity">
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Codmon)
+        @Html.HiddenFor(model => model.IsNew)
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.CuentaTxt, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.CuentaTxt, new { @class = "form-control col-md-12 col-xs-12 inputPositiveInput required", placeholder = "Digite el numero de la cuenta", @maxlength = 6})
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.NombreCuenta, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.NombreCuenta, new { @class = "form-control col-md-12 col-xs-12 required", placeholder = "Digite el nombre de la cuenta", @maxlength = 200, @onchange="this.value = this.value.toUpperCase();" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "col-form-label col-md-12 col-xs-12" })
+                    <div class="col-md-12 col-xs-12 input-group dp-date">
+                        @{
+                            string fechaInicio = (Model.FechaInicio.Year != 1 ? Model.FechaInicio.ToString("dd/MM/yyyy") : "");
+                        }
+                        <input type="hidden" value="@fechaInicio" id="hdf_FechaInicio" />
+                        @Html.TextBoxFor(model => model.FechaInicio, new { @class = "form-control col-md-12 col-xs-12 required"})
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "col-form-label col-md-12 col-xs-12" })
+                    <div class="col-md-12 col-xs-12 input-group dp-date">
+                        @{
+                            string fechaFin = (Model.FechaFin.HasValue ? Model.FechaFin.Value.ToString("dd/MM/yyyy") : "");
+                        }
+                        <input type="hidden" value="@fechaFin" id="hdf_FechaFin" />
+                        @Html.TextBoxFor(model => model.FechaFin, new { @class = "form-control col-md-12 col-xs-12"})
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Signo, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.Signo, (IEnumerable<SelectListItem>)ViewBag.PucSignsAccountsList, "Seleccione", htmlAttributes: new { @class = "form-control required", @style = "width:100%;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-format" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="PucSolidaria.Save();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>
+<script>
+    PucSolidaria.InitControls()
+</script>

@@ -1,0 +1,38 @@
+.errorValidate {
+    border-color: #dd3f3f !important;
+}
+
+    .errorValidate:hover {
+        border-color: #dd3f3f;
+    }
+
+.tooltipError {
+    background-color: #dd3f3f;
+    border: solid 1px #dd3f3f;
+    padding: 4px 15px;
+    border-radius: 6px;
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    z-index: 1000;
+    font-size:12px;
+}
+
+.card-body-indicator {
+    padding: 10px !important;
+}
+
+.errorValidateBorder {
+    border-color: #dd3f3f !important;
+    border: 1px solid #dd3f3f !important;
+}
+
+    .errorValidateBorder:hover {
+        border-color: #dd3f3f;
+    }
+
+
+.folder-color {
+    color: #c7b41e !important;
+}

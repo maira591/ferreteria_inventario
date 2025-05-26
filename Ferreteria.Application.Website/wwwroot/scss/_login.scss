@@ -1,0 +1,51 @@
+// Pulling these images from Unsplash
+// Toshi the dog from https://unsplash.com/@charlesdeluvio - what a funny dog...
+
+.bg-login-image {
+  background: url($login-image) no-repeat;
+  background-position: center;
+  background-size: 90%;
+}
+
+.bg-register-image {
+  background: url($register-image) no-repeat;
+  background-position: center;
+  background-size: auto;
+  width: 90%;
+}
+
+.bg-password-image {
+  background: url($password-image);
+  background-position: center;
+  background-size: cover;
+}
+
+form.user {
+
+  .custom-checkbox.small {
+    label {
+      line-height: 1.5rem;
+    }
+  }
+
+  .form-control-user {
+    font-size: 0.8rem;
+    border-radius: 10rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .btn-user {
+    font-size: 0.8rem;
+    border-radius: 10rem;
+    padding: 0.75rem 1rem;
+  }
+
+}
+
+.btn-google {
+  @include button-variant($brand-google, $white);
+}
+
+.btn-facebook {
+  @include button-variant($brand-facebook, $white);
+}

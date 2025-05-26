@@ -1,0 +1,93 @@
+﻿@model Ferreteria.Application.Website.Models.VerifyToken
+@{
+    ViewData["Title"] = "Verificación de Token";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="~/img/favicon.png" />
+    <title>@ViewData["Title"] - Sistema de Gestión de Inventario</title>
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/css/sb-admin-2.css" />
+</head>
+<body class="bg-white">
+    <input type="hidden" id="baseUrl" value="@ViewBag.UrlBase" />
+    <div class="">
+        <main role="main" class="pb-3">
+            <div class="container">
+                <partial name="_ModalPartial" />
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+                    <div class="col-xl-10 col-lg-12 col-md-9">
+                        <div class="card o-hidden border-0 my-5 shadow-lg">
+                            <div class="card-body p-0">
+                                <div class="row">
+                                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                    <div class="col-lg-6">
+                                        <div class="p-5">
+                                            <div>
+                                                <h1 class="h4 text-gray-900 mb-2 text-center">Verificación de Token</h1>
+                                                <br />
+                                                <p class="mb-4">
+                                                    Ingrese el <b>Token</b> enviado a su correo electrónico.
+                                                </p>
+                                            </div>
+                                            <form data-ajax="true" data-ajax-method="POST" id="formVerifyToken" class="user">
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                                @Html.HiddenFor(model => model.UserId)
+                                                @Html.HiddenFor(model => model.UserName)
+                                                @Html.HiddenFor(model => model.TimeToLive)
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user required"
+                                                           id="Token" name="Token"
+                                                           placeholder="Token de verificación">
+                                                </div>
+
+                                                <button type="button" class="btn btn-primary btn-user btn-block" onclick="verifyToken();" data-tippy-content="Pulse para Verificar.">Validar</button>
+
+                                                <br />
+                                                <hr>
+                                                <a href="@Url.Action("RememberPassword","Login")">&larr;  Volver a generar el token</a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted bg-gray-100">
+        <div class="container">
+            &copy; @DateTime.Now.Year - Sistema de Gestión de Inventario
+        </div>
+    </footer>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap-notify.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/tippy.js"></script>
+    <script src="~/js/sb-admin-2.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/core/Login/Login.js" asp-append-version="true"></script>
+    <script src="~/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/vendor/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            CreateAllTooltips();
+        });
+    </script>
+</body>
+</html>

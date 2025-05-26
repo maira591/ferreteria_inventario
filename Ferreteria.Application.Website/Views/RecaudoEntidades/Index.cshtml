@@ -1,0 +1,169 @@
+﻿@using NonFactors.Mvc.Grid
+@model Core.Application.Website.Models.Recaudo.EntidadesModel
+@{
+    ViewBag.Title = "Entidades";
+    ViewBag.SubTitle = "Administración de la información de la Organización.";
+}
+
+<link href="~/css/core/mvc-grid/mvc-grid.css" rel="stylesheet" />
+<link href="~/css/jquery.json-viewer.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    //showLoading();
+</script>
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <div class="col-12">
+                <div class="form-inline">
+                    <h4 class="card-title ">
+                        @ViewBag.Title
+                    </h4>
+                </div>
+                <p class="card-category">
+                    @ViewBag.SubTitle
+                </p>
+            </div>
+        </div>
+        <div class="card-body">
+            <form id="paramsForm">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Nit)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(model => model.Nit, htmlAttributes: new { @class = "form-control", placeholder = "Nit", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Nombre)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(model => model.Nombre, htmlAttributes: new { @class = "form-control", placeholder = "Razón Social" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Sigla)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.DropDownListFor(model => model.Sigla, (IEnumerable<SelectListItem>)ViewBag.ListSiglas, "Seleccione...", htmlAttributes: new { @class = "form-control select2 required", @style = "width:100%;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Direccion)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(model => model.Direccion, htmlAttributes: new { @class = "form-control", placeholder = "Dirección" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Departamento)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.DropDownListFor(model => model.Departamento, (IEnumerable<SelectListItem>)ViewBag.ListDepartaments, "Seleccione...", htmlAttributes: new { @class = "form-control select2 required", @style = "width:100%;", onchange = "RunReport.LoadMunicipios(this.value);" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Municipio)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.DropDownListFor(model => model.Municipio, (IEnumerable<SelectListItem>)ViewBag.ListMunicipios, "Seleccione...", htmlAttributes: new { @class = "form-control select2 required", @style = "width:100%;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Telefono1)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(model => model.Telefono1, htmlAttributes: new { @class = "form-control", placeholder = "Teléfono 1" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Telefono2)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(model => model.Telefono2, htmlAttributes: new { @class = "form-control", placeholder = "Teléfono 2" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Correo1)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(model => model.Correo1, htmlAttributes: new { @class = "form-control", placeholder = "Correo 1" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Correo2)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(model => model.Correo2, htmlAttributes: new { @class = "form-control", placeholder = "Correo 2" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.Correo3)
+                        </div>
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(model => model.Correo3, htmlAttributes: new { @class = "form-control", placeholder = "Correo 3" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <br />
+                    <input id="btn-preview" type="button" onclick="RunReport.PreviewReport();" class="btn btn-success" value="Actualizar">
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/core/MvcGrid/mvc-grid.js"></script>
+<script src="~/js/core/Petitions/Petitions.js"></script>
+<script src="~/js/core/Recaudo/Entidades/Entidades.js" asp-append-version="true"></script>
+
+<script src="~/js/jquery.unobtrusive-ajax.js"></script>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+            $('#parametrizacionRecaudoNav').addClass('active');
+            $('#parametrizacionRecaudo').addClass('show');
+            $('#nav-entidadesRecaudo').addClass('active');
+        });
+
+        document.addEventListener('reloadend', function (e) {
+            CreateAllTooltips();
+            addKeyboardEvents();
+            hideLoading();
+        });
+
+        [].forEach.call(document.getElementsByClassName('mvc-grid'),
+            function (element) {
+                new MvcGrid(element);
+            });
+
+    </script>
+}

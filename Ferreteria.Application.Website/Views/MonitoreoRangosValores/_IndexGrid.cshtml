@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Core.Application.Website.Models.Monitoreo.RangosValoresModel>
+@using NonFactors.Mvc.Grid
+@{
+    var urlEdit = @Url.Action("Edit");
+}
+
+@(Html.Grid(Model).Build(columns =>
+{
+    columns.Add(c => c.NombreTipoRango).Titled("Tipo Rango").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.RangoDesde).Titled("Rango Desde").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.RangoHasta).Titled("Rango Hasta").UsingDefaultFilterMethod("contains");    
+}).Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid")
+                                        .Pageable(pager =>
+                                        {
+                                            pager.PageSizes = new Dictionary<Int32, String> { { 0, "Todos" }, { 5, "5" }, { 10, "10" }, { 50, "50" }, { 100, "100" } };
+                                            pager.ShowPageSizes = true;
+                                            pager.RowsPerPage = 5;
+                                        }).Css("table table-bordered table-hover")
+
+)

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Core.Application.Website.Models.Monitoreo.CuentaPucSolidModel>
+@using NonFactors.Mvc.Grid
+@{
+    var urlEdit = @Url.Action("Edit");
+    var urlDelete = @Url.Action("Delete");
+}
+
+@(
+Html.Grid(Model).Build(columns =>
+{
+    columns.Add(c => c.CuentaTxt).Titled("Cuenta").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.Signo).Titled("Signo").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.NombreCuenta).Titled("Nombre Cuenta").RenderedAs(s=> s.NombreCuenta.Trim()).UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.FechaInicio).Titled("Fecha Inicio").RenderedAs(s => s.FechaInicio.ToString("dd/MM/yyyy")).Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.FechaFin).Titled("Fecha Fin").RenderedAs(s => s.FechaFin.HasValue ? s.FechaFin.Value.ToString("dd/MM/yyyy") : "").Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key' tabindex='0' data-tippy-content='Editar' onclick=\"PucSolidaria.OpenEdit('{urlEdit}?account={s.CuentaTxt}&dateStart={s.FechaInicio.ToString("dd/MM/yyyy")}');\"></i></div>").Encoded(false);
+
+}).Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid")
+                                        .Pageable(pager =>
+                                        {
+                                            pager.PageSizes = new Dictionary<Int32, String> { { 0, "Todos" }, { 5, "5" }, { 10, "10" }, { 50, "50" }, { 100, "100" } };
+                                            pager.ShowPageSizes = true;
+                                            pager.RowsPerPage = 5;
+                                        }).Css("table table-bordered table-hover")
+
+)

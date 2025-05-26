@@ -1,0 +1,85 @@
+﻿@model Ferreteria.Application.Website.Models.UserBasicModel
+
+@{
+	ViewBag.Title = "Información Cuenta Usuario";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/validation.css" rel="stylesheet" asp-append-version="true" />
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+	<div class="card">
+		<div class="card-header card-header-primary">
+			<div class="row">
+				<div class="col-6">
+					<div class="form-inline">
+						<h4 class="card-title ">
+							Información Cuenta Usuario
+						</h4>
+
+					</div>
+					<p class="card-category">
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<form id="formUpdateInfoUser" class="form-horizontal">
+				<br />
+				@Html.HiddenFor(model => model.UserId)
+
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							@Html.TextBoxFor(model => model.Email, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100, @readonly = true })
+						</div>
+					</div>
+
+
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control required", placeholder = "Digite los nombres y apellidos", @maxlength = 80, @readonly = true } })
+						</div>
+					</div>
+					
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							@Html.TextBoxFor(model => model.Email, new { @class = "form-control col-md-12 col-xs-12 required", @maxlength = 100, @readonly = true })
+						</div>
+					</div>
+
+				</div>
+
+				<br /><br />
+				<div class="row">
+					<div class="col-md-6 col-sm-6 ml-2">
+						<input type="button" value="Actualizar Información" class="btn btn-primary" onclick="updateInfoUser();" data-tippy-content="Pulse para Actualizar Información." />
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src="~/js/core/Login/Login.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+	$(function () {
+		CreateAllTooltips();
+		initValidations()
+		$('.select2').select2();
+
+		$('#Name').on('input', function () {
+			var inputValue = $(this).val();
+			// Expresión regular para permitir solo letras, tildes y espacios
+			var regex = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/;
+			// Validar el valor del input con la expresión regular
+			if (!regex.test(inputValue)) {
+				$(this).val(inputValue.replace(/[^a-zA-ZáéíóúÁÉÍÓÚ\s]/g, ''));
+			}
+		});
+	});
+</script>

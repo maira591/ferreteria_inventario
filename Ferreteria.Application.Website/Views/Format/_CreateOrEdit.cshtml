@@ -1,0 +1,133 @@
+﻿@using Core.Application.Website.Models
+
+@model Core.Application.Website.Models.FormatModel
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="Format" data-ajax="true" data-ajax-method="POST" id="formformatcrud">
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+        @Html.HiddenFor(model => model.Periodicities)
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.GuidFormatTypeId, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.GuidFormatTypeId, (IEnumerable<SelectListItem>)ViewBag.ListFormatTypes, htmlAttributes: new { @class = "form-control", @style = "width:100%;" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control col-md-12 col-xs-12 inputPositiveInput required", placeholder = "Digite el número de días", @maxlength = 3 })
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-12 col-xs-12 required", placeholder = "Digite el nombre del formato", @maxlength = 100 })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Alias, new { @class = "form-control col-md-12 col-xs-12 textNumber required", placeholder = "Digite el alias del formato", @maxlength = 60 })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Periodicities, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownList("PeriodicityId", (IEnumerable<SelectListItem>)ViewBag.ListPeriodicityTypes, htmlAttributes: new { @class = "form-control required multiselect", @style = "width:100%;", multiple = "multiple" })
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "form-control required", @style = "width:100%;", @maxlength = 400, placeholder = "Digite la descripción" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.StorageTable, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.StorageTable, htmlAttributes: new { @class = "form-control", @style = "width:100%;", @maxlength = 30, placeholder = "Digite la tabla de almacenamiento" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.UseUnitRow, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <select asp-for="UseUnitRow" asp-items="Html.GetEnumSelectList<Core.Domain.Utils.Constants.UseUnitRow>()" class="form-control">
+                            <option selected="selected" value="">Seleccione</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    @Html.LabelFor(model => model.IsEnabled, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.CheckBoxFor(model => model.IsEnabled, new { @class = "form-check" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    @Html.LabelFor(model => model.IsRequired, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.CheckBoxFor(model => model.IsRequired, new { @class = "form-check" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    @Html.LabelFor(model => model.IsTrasposed, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.CheckBoxFor(model => model.IsTrasposed, new { @class = "form-check" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-format" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="Format.SaveFormat();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#PeriodicityId').multiselect({
+            includeSelectAllOption: false,
+            maxHeight: 150,            
+            onChange: function (option, checked) {
+                Format.GetSelectedPeriodicity();
+            },
+            buttonTextAlignment: 'left',
+            buttonWidth: '100%'
+        });
+
+        if ($("#Periodicities").val() != "") {
+            Format.SetPeriodicitySelection();
+        }
+    });
+</script>

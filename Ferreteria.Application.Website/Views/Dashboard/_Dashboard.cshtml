@@ -1,0 +1,249 @@
+﻿@using Core.Application.Website.Models
+@model DashBoardModel
+
+<style>
+    #radarGraphic {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .hiddenscroll::-webkit-scrollbar {
+        width: 10px;
+    }
+
+</style>
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="eight-indicators">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <div class="card border-left-primary  shadow h-100 py-2">
+                    <div class="card-body card-body-indicator">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+                                    Depósitos
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@string.Format("{0:C1}", Model.Depositos)</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <small>SALDO EN MILLONES</small>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <div class="card border-left-primary  shadow h-100 py-2">
+                    <div class="card-body card-body-indicator">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+                                    Ahorradores
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@string.Format("{0:N0}", Model.Ahorradores)</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <small>Número</small>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-hashtag fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+
+                <div class="card border-left-primary  shadow h-100 py-2">
+                    <div class="card-body card-body-indicator">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+                                    Seguro de depósito
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@string.Format("{0:C1}", Model.SeguroDeposito)</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <small>SALDO EN MILLONES</small>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <div class="card border-left-primary  shadow h-100 py-2">
+                    <div class="card-body card-body-indicator">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+                                    Cobertura del Seguro de depósito
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CoberturaSeguroDeposito</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <small>Porcentaje</small>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-percent fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+
+                <div class="card border-left-primary  shadow h-100 py-2">
+                    <div class="card-body card-body-indicator">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+                                    IRC
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.IRC</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <small>Número</small>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-hashtag fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+
+                <div class="card border-left-primary  shadow h-100 py-2">
+                    <div class="card-body card-body-indicator">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+                                    Índice Calidad Cartera
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.IndiceCalidadCartera</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <small>Porcentaje</small>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-percent fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <div class="card border-left-primary  shadow h-100 py-2">
+                    <div class="card-body card-body-indicator">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+                                    Índice de morosidad cartera
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@(Model.IndiceMorosidadCartera.Value) </div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <small>Porcentaje</small>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-percent fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+
+                <div class="card border-left-primary  shadow h-100 py-2">
+                    <div class="card-body card-body-indicator">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+                                    Cobertura de la cartera
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CoberturaCartera</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <small>Porcentaje</small>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-percent fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>Indicador de Riesgo Compuesto (IRC: @Model.IRC)<strong>
+                </div>
+                <div class="card-body">
+                    <div class="text-center hiddenscroll" style="height: 400px; width: inherit; overflow-x: scroll;">
+                        <canvas id="radarGraphic" style="display: block; box-sizing: border-box; height: 400px; width: inherit;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        Crecimiento anual de los depósitos
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <div class="text-center hiddenscroll" style="width: inherit; overflow-x: scroll;">
+                        <canvas id="depositsLineGraphic" style="display: block; box-sizing: border-box; width: inherit;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        Crecimiento anual de la cartera bruta
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <div class="text-center hiddenscroll" style="width: inherit; overflow-x: scroll;">
+                        <canvas id="grossPortfolioLineGraphic" style="display: block; box-sizing: border-box; width: inherit;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+<script>
+
+    var graphicData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+
+    Dashboard.RenderGraphics(graphicData);
+
+
+</script>

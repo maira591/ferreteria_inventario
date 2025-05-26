@@ -1,0 +1,113 @@
+﻿/* Sticky footer styles
+-------------------------------------------------- */
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.bg-gradient-primary {
+    background-color: #0757B0;
+    background-image: linear-gradient(180deg, #143D8D 10%, #143D8D 100%);
+    background-size: cover;
+}
+
+.img-sidebar {
+    width: 35px;
+    border-radius: 26px;
+    box-shadow: 1px 1px 14px #f8f9fc85;
+    background-color: #fff;
+    padding: 1px;
+}
+
+span#modal-loading-msg {
+    margin-top: 10px;
+    color: #fff
+}
+.ripple-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: inherit;
+}
+div.modal-content > .spinner-border {
+    align-self: center;
+}
+
+div#modal-loading-content {
+    background-color: transparent;
+    border: none;
+}
+
+div.modal-dialog {
+    display: table;
+    top: calc(50% - 24px);
+}
+div[data-notify=container].alert-danger {
+    background-color: #ff3547 !important;
+    color: white;
+}
+div[data-notify=container].alert-warning {
+    background-color: #fb3 !important;
+    color: white;
+}
+
+div[data-notify=container].alert-info {
+    background-color: #33b5e5 !important;
+    color: white;
+}
+
+div[data-notify=container].alert-success {
+    background-color: #00c851 !important;
+    color: white;
+}
+.card-header-primary {
+    background: linear-gradient(#0757B0,#143D8D);
+    color: #fff;
+}
+.addrecord {
+    margin-left: 5px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    color: #fff;
+}
+.mvc-grid-title {
+    color: #0057b1;
+}
+.text-danger-icon {
+    color: #b31010 !important;
+    cursor: pointer;
+}
+.text-primary-icon {
+    color: #0057b1 !important;
+    cursor: pointer;
+}
+
+.input-date {
+    width: 100% !important;
+    color: #201919 !important;
+    border-radius: 20px !important;
+    border: none !important;
+}
+
+.input-date:hover {
+    cursor: pointer;
+}
+
+#oldResults {
+    max-height: 35rem;
+    overflow-y: auto;
+}

@@ -1,0 +1,108 @@
+﻿@{
+	ViewData["Title"] = "Iniciar sesión";
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" type="image/x-icon" href="~/img/maisoft_icon.ico">
+	<title>@ViewData["Title"] - Sistema de Gestión de Inventario </title>
+	<link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="~/css/sb-admin-2.css" />
+	<link href="~/css/gel.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body class="bg-white" style="margin-bottom: 0 !important;">
+	<input type="hidden" id="baseUrl" value="@ViewBag.UrlBase" />
+	<div class="">
+		<main role="main" class="pb-3">
+			<partial name="_ModalPartial" />
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 mt-3">
+						<img src="~/img/maisoft_logo2.png" class="logofgc" alt="Gobierno de colombia">
+					</div>
+				</div>
+				<!-- Outer Row -->
+				<div class="row justify-content-center">
+					<div class="col-xl-10 col-lg-12 col-md-9 d-flex justify-content-center">
+						<div class="card o-hidden border-0 my-5 shadow-lg" style="width: 25rem;">
+							<div class="card-header">
+								<b style="color:#36c;" data-tippy-content="Sistema de Gestión de Inventario">Sistema de Gestión de Inventario</b>
+							</div>
+							<div class="card-body p-0">
+								<!-- Nested Row within Card Body -->
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="pl-5 pb-5 pr-5 pt-4 text-center">
+
+											<div class="text-center">
+												<h1 class="h4 mb-4"><b style="color:#36c;">Iniciar Sesión</b></h1>
+											</div>
+
+											<form asp-action="Index" asp-controller="Login"
+												  data-ajax="true" data-ajax-method="POST"
+												  data-ajax-begin="showLoading('Ingresando...')" onsubmit="AJAXSubmit(this);return false;" class="user">
+												<div class="form-group">
+													<input type="text" class="form-control"
+														   id="UserName" name="UserName" aria-describedby="emailHelp"
+														   placeholder="Usuario">
+												</div>
+												<div class="form-group">
+													<input type="password" class="form-control"
+														   id="Password" name="Password" placeholder="Contraseña">
+												</div>
+												
+												<div class="d-flex justify-content-center">
+													<input class="btn btn-primary btn-user btn-block" type="submit" value="Ingresar" data-tippy-content="Pulse para Ingresar." />
+												</div>
+											</form>
+											<hr>
+											<div class="text-center">
+												<a class="small" href="@Url.Action("RememberPassword","Login")">¿Olvidaste tu contraseña?</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<footer id="master2022" class="footer-login">
+		<div id="bar-govco-footer">
+			<a href="https://www.colombia.co/" target="_blank" style="color: #36c !important;">
+				<img id="imgcoColmbia" src="~/img/header_logo.png" data-tippy-content="Pulse para ir a Colombia" target="_blank">
+			</a>
+			<a href="https://www.gov.co/" target="_blank" class="text-white">
+				© Todos los derechos reservados @DateTime.Now.Year
+			</a>
+		</div>
+	</footer>
+
+	
+
+	<script src="~/vendor/jquery/jquery.min.js"></script>
+	<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="~/vendor/bootstrap/js/bootstrap-notify.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="~/js/sb-admin-2.min.js" asp-append-version="true"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/popper.js"></script>
+	<script src="~/js/tippy.js"></script>
+	<script src="~/js/core/Login/login.js" asp-append-version="true"></script>
+
+	<script type="text/javascript">
+		$(function () {
+			CreateAllTooltips();
+		});
+	</script>
+</body>
+</html>

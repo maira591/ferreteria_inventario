@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Core.Application.Website.Models.Recaudo.PsdControlFechaModel>
+@using NonFactors.Mvc.Grid
+@{
+    var urlEdit = @Url.Action("Edit");
+}
+
+@(
+Html.Grid(Model).Build(columns =>
+{
+    columns.Add(c => c.FechaCorte).Titled("Fecha Corte").RenderedAs(s => (s.FechaCorte.ToString("dd/MM/yyyy"))).Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.FechaInicio).Titled("Fecha Inicio").RenderedAs(s => (s.FechaInicio.ToString("dd/MM/yyyy"))).Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.FechaFinal).Titled("Fecha Final").RenderedAs(s => (s.FechaFinal.ToString("dd/MM/yyyy"))).Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.FechaMaxPago).Titled("Fecha Máxima  de Pago").RenderedAs(s => (s.FechaMaxPago.ToString("dd/MM/yyyy"))).Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.NumeroMeses).Titled("Número Meses").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.NumeroDias).Titled("Número Días").UsingDefaultFilterMethod("contains");
+    columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key' tabindex='0' data-tippy-content='Editar' onclick=\"PsdControlFecha.OpenEdit('{urlEdit}?fechaCorte={s.FechaCorte.ToString("dd/MM/yyyy")}');\"></i></div>").Encoded(false);
+}).Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid")
+                                        .Pageable(pager =>
+                                        {
+                                            pager.PageSizes = new Dictionary<Int32, String> { { 0, "Todos" }, { 5, "5" }, { 10, "10" }, { 50, "50" }, { 100, "100" } };
+                                            pager.ShowPageSizes = true;
+                                            pager.RowsPerPage = 5;
+                                        }).Css("table table-bordered table-hover")
+
+)

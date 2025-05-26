@@ -1,0 +1,225 @@
+
+@media (max-width: 768px) {
+    footer#master2022 .container {
+        margin: 0 15px 25px !important;
+        padding: 15px 15px !important;
+        width:auto !important;
+    }
+}
+
+@media (max-width: 768px) 
+{
+    footer#master2022 .container .contentContacto .izquierda h3.tituloEntidad {
+        font-size: 22px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    footer#master2022 .container .inferior ul.icon-redes, footer#master2022 .container .inferior ul.cont_direccion {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+}
+@media (max-width: 768px) {
+    .dfwp-item {
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    footer .derecha {
+        padding-top: 0px !important;
+        text-align: left !important;
+    }
+}
+
+@media (max-width: 768px) {
+    footer#master2022 .container .contentContacto .derecha img {
+        max-height: 55px !important;
+        margin: auto !important;
+    }
+}
+
+@media (max-width: 640px) {
+    footer .izquierda {
+        padding: 25px 0 25px 0 !important;
+        width: 100% !important;
+    }
+}
+
+
+header div#bar-govco {
+    width: 100% !important;
+    display: block !important;
+    background: #36c !important;
+}
+
+    header div#bar-govco .container {
+        display: flex !important;
+        justify-content: space-between !important;
+    }
+
+        header div#bar-govco .container img {
+            max-height: 25px;
+            margin: 5px;
+        }
+
+footer#master2022 {
+    background: #068460;
+    background: linear-gradient(0deg, #068460 80%, #ffffff 80%);
+}
+    footer#master2022 .container {
+        background: #ffffff;
+        border: 2px solid #E5EEFB;
+        border-radius: 20px;
+        margin-bottom: 3rem;
+        margin-top: 3rem;
+        padding: 2rem 7rem;
+    }
+footer .izquierda {
+    font-size: 16px;
+    line-height: 1.75;
+    text-align: left;
+    color: #666666;
+    padding: 35px 0px 25px 0px;
+}
+footer .derecha {
+    font-size: 16px;
+    line-height: 1.75;
+    text-align: right;
+    color: #666666;
+    padding: 22px 0px 25px 0px;
+}
+footer#master2022 .container .izquierda h3.tituloEntidad {
+    font-family: inherit;
+    font-size: 24px;
+    color: #143d8d;
+    font-weight: bold;
+}
+footer ul {
+    margin: 0px;
+    padding: 0px;
+}
+li.dfwp-item {
+    list-style-type: none;
+}
+p, li, span {
+    font-family: inherit;
+    color: #666666;
+}
+.cbq-layout-main {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+footer#master2022 .container .inferior ul.icon-redes .item-redes {
+    margin-right: 10px;
+}
+    footer#master2022 .container .inferior ul.icon-redes .item-redes a {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+        footer#master2022 .container .inferior ul.icon-redes .item-redes a .iconredes {
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            position: relative;
+        }
+    footer#master2022 .container .inferior ul.icon-redes .item-redes p {
+        margin-bottom: 0;
+        text-decoration: underline;
+        font-family: inherit;
+    }
+
+footer#master2022 .container .inferior {
+    padding-bottom: 20px;
+}
+footer .inferior {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: left;
+    color: #143d8d;
+    font-weight: bold;
+}
+    footer .inferior p {
+        font-family: inherit !important;
+        font-size: 14px;
+        color: #143d8d !important;
+        width: 80%;
+    }
+footer#master2022 .container .inferior ul.icon-redes .item-redes a img {
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    left: 4px;
+    top: 5px;
+}
+footer#master2022 .container .inferior ul.icon-redes {
+    display: flex;
+}
+footer#master2022 .container .inferior ul.cont_direccion {
+    display: flex;
+    margin-top: 27px;
+}
+
+footer#master2022 .container .inferior ul.cont_direccion li {
+    font-family: inherit;
+    font-size: 16px;
+}
+
+    footer#master2022 .container .inferior ul.cont_direccion li a, footer#master2022 .container .inferior ul.cont_direccion li a:visited {
+        text-decoration: underline;
+        margin-right: 25px;
+        color: #3366CC !important;
+        font-family: inherit;
+    }
+
+footer#master2022 .container .izquierda h4.tituloSede {
+    font-family: inherit;
+    font-size: 18px;
+    color: #3366CC;
+}
+
+footer#master2022 .container .izquierda ul.contactoFooter li .contactos p {
+    font-size: 16px;
+    margin: 0;
+}
+
+footer#master2022 div#bar-govco-footer {
+    width: 100%;
+    display: block;
+    background: #36c;
+
+}
+    footer#master2022 div#bar-govco-footer img#imgcoColmbia {
+        padding-left: 8%;
+    }
+    footer#master2022 div#bar-govco-footer img {
+        max-height: 53px;
+        margin: 10px;
+    }
+        footer#master2022 div#bar-govco-footer img#imggovco {
+            max-height: 27px;
+        }
+
+.btn-user {
+    border-radius: 10rem !important;
+    font-size: inherit !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    max-width: 200px;
+}
+.logofgc {
+    width: 300px;
+    height: 100px;
+}
+.logofgc-footer {
+    width: 300px;
+    height: 100px;
+}

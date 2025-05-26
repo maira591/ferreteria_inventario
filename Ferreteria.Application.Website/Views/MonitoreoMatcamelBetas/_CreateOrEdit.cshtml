@@ -1,0 +1,60 @@
+﻿
+@model Core.Application.Website.Models.Monitoreo.MatcamelBetasModel
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="Format" data-ajax="true" data-ajax-method="POST" id="formatcamelbetascrud">
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Anio, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Anio, new { @class = "form-control col-md-12 col-xs-12 required", placeholder = "Digite el Año", @maxlength = 100, @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.TipoEntidad, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.TipoEntidad,(IEnumerable<SelectListItem>)ViewBag.EntityList, new { @class = "form-control col-md-12 col-xs-12", placeholder = "Digite el Capital Financiera", @maxlength = 500 })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.IdBeta, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.IdBeta, (IEnumerable<SelectListItem>)ViewBag.ListBetas, htmlAttributes: new { @class = "form-control", @style = "width:100%;" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Valor, new { @class = "form-control col-md-12 col-xs-12 inputPositiveInput2d required", @style = "width:100%;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-format" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="MatcamelBetas.Save();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>
+<script>
+    setSelect2();
+</script>

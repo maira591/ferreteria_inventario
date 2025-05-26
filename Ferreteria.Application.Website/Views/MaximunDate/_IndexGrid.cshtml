@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Core.Application.Website.Models.MaximunDateModel>
+@using NonFactors.Mvc.Grid
+@{
+    var urlEdit = @Url.Action("Edit", "MaximunDate");
+    var urlDelete = @Url.Action("Delete", "MaximunDate");
+}
+
+@(Html.Grid(Model).Build(columns =>
+{
+    columns.Add(c => c.Type.Name).Titled("Tipo Cooperativa").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.FkLoadType.Name).Titled("Tipo Carga").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.CutoffDate).Titled("Fecha Corte").RenderedAs(s => (s.CutoffDate).ToString("dd/MM/yyyy")).Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.MaxDate).Titled("Fecha Máxima Transmisión").RenderedAs(s => (s.MaxDate).ToString("dd/MM/yyyy")).Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.IsEnabled).Titled("Activo").RenderedAs(x => x.IsEnabled ? "SI" : "NO");
+    columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key' tabindex='0' data-tippy-content='Editar' onclick=\"MaximunDate.OpenEdit('{urlEdit}?id={s.Id}');\"></i> <i class='fa fa-trash btn-lg text-danger-icon gel-tab-key' tabindex='0' data-tippy-content='Eliminar' style='margin-left:8px' onclick=\"MaximunDate.Delete('{urlDelete}?id={s.Id}')\"></i></div>").Encoded(false);
+})
+.Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid")
+                                        .Pageable(pager =>
+                                        {
+                                            pager.PageSizes = new Dictionary<Int32, String>
+    { { 0, "Todos" }, { 5, "5" }, { 10, "10" }, { 50, "50" }, { 100, "100" } };
+    pager.ShowPageSizes = true;
+    pager.RowsPerPage = 5;
+    }).Css("table table-bordered table-hover")
+
+)
+

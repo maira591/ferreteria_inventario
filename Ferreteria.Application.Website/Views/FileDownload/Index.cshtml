@@ -1,0 +1,106 @@
+﻿@using NonFactors.Mvc.Grid
+@model Core.Domain.ViewModel.UplodFileVM
+@{
+    ViewBag.Title = "Descarga de archivos";
+}
+
+<link href="~/css/core/mvc-grid/mvc-grid.css" rel="stylesheet" />
+<link href="~/css/jquery.json-viewer.css" rel="stylesheet" />
+<style>
+    .selection {
+        color: #6e707e !important;
+    }
+
+    .multiselect-container {
+        max-height: 180px;
+        overflow: hidden auto;
+        transform: none;
+        width: 100%;
+        will-change: transform;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">@string.Concat(ViewBag.CooperativeName, "Descarga de Archivos")</h1>
+    </div>
+</div>
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="card">
+        <form class="form-group" enctype="multipart/form-data" id="frm-file-upload"
+              asp-controller="FileUpload" asp-action="ValidateFile"
+              data-ajax="true"
+              data-ajax-method="POST"
+              data-ajax-begin="OnBegin"
+              data-ajax-success="fileResult">
+
+            <input type="hidden" id="UrlBase" value="@ViewBag.UrlBase" />
+            <input type="hidden" id="BaseDirectory" value="@ViewBag.BaseDirectory" />
+            <div class="card-header card-header-primary">
+                <div class="row">
+
+                    @if (ViewBag.ShowCooperativeFilters)
+                    {
+                        <input type="hidden" id="validateCoop" value="S" />
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            @Html.Label(null, "Tipo Cooperativa", htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                @Html.DropDownList("EntityType", (IEnumerable<SelectListItem>)ViewBag.EntityTypeList, "Seleccione", htmlAttributes: new { @class = "form-control select2 required", @style = "width:100%;"})
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            @Html.Label(null, "Cooperativa", htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                @Html.DropDownList("EntityCode", (IEnumerable<SelectListItem>)ViewBag.EntityCodeList, "Seleccione", htmlAttributes: new { @class = "form-control select2 required", @style = "width:100%;", onchange="FileDownload.VerifyValuesFilters()" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="col-12">
+                            <div class="form-inline">
+                                <h4 class="card-title ">
+                                    Descarga de archivos - Cooperativa
+                                </h4>
+                                
+                            </div>
+                        </div>
+                        <input type="hidden" id="validateCoop" value="N" />
+                        <input type="hidden" id="EntityCode" name="EntityCode" value="@ViewBag.EntityCode" />
+                        <input type="hidden" id="EntityType" name="EntityType" value="@ViewBag.EntityType" />
+                    }
+                </div>
+
+                <div class="col-md-1 col-sm-1 col-xs-12" style="padding-top: 35px;">
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="bread-crumbs">
+                    
+                </div>
+                <hr />
+                <div id="directory-files" style=" max-height: 400px;  overflow-y: auto;">
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script src="~/js/core/FileDownload/FileDownload.js" asp-append-version="true"></script>
+<script src="~/js/core/Petitions/Petitions.js" asp-append-version="true"></script>
+
+
+@section Scripts{
+
+    <script>
+        $(function () {
+            $('#nav-file-download').addClass('active');
+            FileDownload.Init();
+        });
+    </script>
+}

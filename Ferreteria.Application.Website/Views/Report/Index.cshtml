@@ -1,0 +1,73 @@
+﻿@using NonFactors.Mvc.Grid
+
+@{
+    ViewBag.Title = "Reportes";
+    ViewBag.SubTitle = "Administración de reportes";
+}
+
+<link href="~/css/core/mvc-grid/mvc-grid.css" rel="stylesheet" />
+<link href="~/css/jquery.json-viewer.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+    showLoading();
+</script>
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <div class="col-12">
+                <div class="form-inline">
+                    <h4 class="card-title ">
+                        Reportes
+                    </h4>
+                    <a href="@Url.Action("Create")">
+                        <i class="fa fa-plus-circle addrecord" data-tippy-content="Nueva reporte." tabindex="0"></i>
+                    </a>
+                    <a href="#" onclick="Report.ExportData('@Url.Action("ExportData")');">
+                        <i class="fa fa-download addrecord" data-tippy-content="Exportar datos." tabindex="0"></i>
+                    </a>
+                </div>
+                <p class="card-category">
+                    Administración de reportes del sistema
+                </p>
+
+            </div>
+        </div>
+        <div class="card-body">
+            <div classs="table-responsive">
+                @Html.AjaxGrid(Url.Action("IndexGrid"))
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/core/Report/Report.js" asp-append-version="true"></script>
+<script src="~/js/core/MvcGrid/mvc-grid.js"></script>
+<script src="~/js/jquery.unobtrusive-ajax.js"></script>
+<script src="~/js/core/Petitions/Petitions.js"></script>
+
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('#parametrizacionNav').addClass('active');
+            $('#parametrizacion').addClass('show');
+            $('#nav-report').addClass('active');
+        });
+
+        document.addEventListener('reloadend', function (e) {
+            CreateAllTooltips();
+            addKeyboardEvents();
+            hideLoading();
+        });
+
+        [].forEach.call(document.getElementsByClassName('mvc-grid'),
+            function (element) {
+                new MvcGrid(element);
+            });
+
+    </script>
+}

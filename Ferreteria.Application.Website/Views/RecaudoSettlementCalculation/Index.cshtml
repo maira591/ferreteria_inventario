@@ -1,0 +1,87 @@
+﻿@using NonFactors.Mvc.Grid
+@model Core.Domain.ViewModel.UplodFileVM
+@{
+    ViewBag.Title = "Cálculo Liquidación";
+}
+
+<link href="~/css/core/mvc-grid/mvc-grid.css" rel="stylesheet" />
+<link href="~/css/jquery.json-viewer.css" rel="stylesheet" />
+<style>
+    .selection {
+        color: #6e707e !important;
+    }
+
+    .multiselect-container {
+        max-height: 180px;
+        overflow: hidden auto;
+        transform: none;
+        width: 100%;
+        will-change: transform;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">@ViewBag.Title</h1>
+    </div>
+</div>
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="card">
+        <form class="form-group" enctype="multipart/form-data" id="form"
+              asp-controller="RecaudoCalculateSettlement"
+              data-ajax="true">
+
+            <input type="hidden" id="UrlBase" value="@ViewBag.UrlBase" />
+            <div class="card-header card-header-primary">
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.Label(null, "Fecha Corte", htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="input-group dp-date">
+                                @Html.TextBox("CutoffDate", null, new { @class = "form-control required .dp-date input" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="col-sm-12">
+                            <label class="col-form-label" style=" padding: 15px;"></label>
+                        </div>
+                        <div class="col-sm-12">
+                            <button style="border: 1px solid" id="btnConsultar" onclick="CalculateSettlement.VerifyValuesFilters();" type="button" class="btn btn-white btn-round btn-just-icon text-white" data-tippy-content="Pulse para Calcular.">
+                                <span>Calcular</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-1 col-xs-12" style="padding-top: 35px;">
+                </div>
+            </div>
+            <div class="card-body">
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script src="~/js/core/Recaudo/CalculateSettlement/CalculateSettlement.js" asp-append-version="true"></script>
+<script src="~/js/core/Petitions/Petitions.js" asp-append-version="true"></script>
+
+
+@section Scripts {
+
+    <script>
+        $(function () {
+            $('#calculoLogNav').addClass('active');
+            $('#calculoAutomatico').addClass('show');
+            $('#nav-calculate-settlement').addClass('active');
+
+            CalculateSettlement.Init();
+        });
+    </script>
+}

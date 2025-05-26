@@ -1,0 +1,66 @@
+﻿@model Core.Application.Website.Models.Monitoreo.TasasModel
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="Format" data-ajax="true" data-ajax-method="POST" id="formtasascrud">
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.NombreTasa, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @if (Model.Id != 0)
+                        {
+                            @Html.TextBoxFor(model => model.NombreTasa, htmlAttributes: new { @class = "form-control required", autocomplete = "off", @maxlength = 60, @readonly = true})
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.NombreTasa, (IEnumerable<SelectListItem>)ViewBag.NamesRates,"Seleccione", htmlAttributes: new { @class = "form-control select2 required", @style = "width:100%;"  })
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.FechaTasa, htmlAttributes: new { @class = "col-form-label col-md-12 col-xs-12" })
+                    <div class="col-md-12 col-xs-12 input-group dp-date">
+                        @{
+                            string fechaTasa = (Model.FechaTasa.Year != 1 ? Model.FechaTasa.ToString("dd/MM/yyyy") : "");
+                        }
+                        <input type="hidden" value="@fechaTasa" id="hdf_FechTasa" />
+                        @Html.TextBoxFor(model => model.FechaTasa, new { @class = "form-control col-md-12 col-xs-12" , @readonly = "readonly"})
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.ValorTasa, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.ValorTasa, new { @class = "form-control col-md-12 col-xs-12 required inputPositiveInput2d", placeholder = "Digite el Valor Tasa", @maxlength = 14 })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-format" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="Tasas.Save();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>
+<script>
+    Tasas.InitControls()
+</script>

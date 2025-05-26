@@ -1,0 +1,101 @@
+﻿@using NonFactors.Mvc.Grid
+
+@{
+    ViewBag.Title = "Certificado Cooperativa";
+}
+
+<link href="~/css/core/mvc-grid/mvc-grid.css" rel="stylesheet" />
+<link href="~/css/jquery.json-viewer.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+    showLoading();
+</script>
+<style>
+    .selection {
+        color: #6e707e !important;
+    }
+
+    .multiselect-container {
+        max-height: 180px;
+        overflow: hidden auto;
+        transform: none;
+        width: 100%;
+        will-change: transform;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Certificado Cooperativa</h1>
+    </div>
+</div>
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <form id="formCertificate">
+
+                @if (ViewBag.ShowCooperativeFilters)
+                {
+                    <div class="row">
+                        <input type="hidden" id="validateCoop" value="S" />
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            @Html.Label(null, "Tipo Cooperativa", htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                @Html.DropDownList("EntityType", (IEnumerable<SelectListItem>)ViewBag.EntityTypeList, "Seleccione", htmlAttributes: new { @class = "form-control required select2", @style = "width:100%;" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            @Html.Label(null, "Cooperativa", htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                @Html.DropDownList("EntityCode", (IEnumerable<SelectListItem>)ViewBag.EntityCodeList, "Seleccione", htmlAttributes: new { @class = "form-control required select2", @style = "width:100%;", onchange ="CertificateRequestAdmin.VerifyFilters()"})
+                            </div>
+                        </div>
+                    </div>
+                }
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="text-center" id="container-generate" style="display:none;">
+                Por favor de clic en el botón "Generar certificado"
+                <br />
+                <br />
+                <button onclick="CertificateRequestAdmin.GenerateCertificate()" class="btn btn-success" data-tippy-content="Pulse para generar el certificado.">
+                    <i class='fa fa-file-pdf fa-lg'></i>
+                    <span>Generar certificado</span>
+                </button>
+                <br />
+                <br />
+            </div>
+
+
+            <br />
+            <br />
+            <div class="text-center" id="response-div">
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<script src="~/js/core/MvcGrid/mvc-grid.js"></script>
+<script src="~/js/core/Petitions/Petitions.js"></script>
+<script src="~/js/jquery.unobtrusive-ajax.js"></script>
+<script src="~/js/core/CertificateRequestAdmin/CertificateRequestAdmin.js" asp-append-version="true"></script>
+
+
+@section Scripts{
+
+    <script>
+        $(function () {
+            hideLoading();
+            $('#nav-generate-certificate').addClass('active');
+
+            CertificateRequestAdmin.Init()
+        });
+    </script>
+}

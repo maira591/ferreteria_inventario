@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Core.Application.Website.Models.LogModel>
+@using NonFactors.Mvc.Grid
+
+@(Html.Grid(Model).Build(columns =>
+    {
+        columns.Add(item => item.Nombre).Titled("Log").UsingDefaultFilterMethod("contains");
+        columns.Add(item => item.Fecha).Titled("Fecha").RenderedAs(item => item.Fecha != null ? ((DateTime)item.Fecha).ToString("dd/MM/yyyy") : "").Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+        columns.Add().Titled("Accion").RenderedAs(item => $"<a href=\"" + @Url.Action("Download", new { log = item.Archivo }) + $"\" target=\"_blank\" data-tippy-content=\"Descargar\"><i class='fa fa-download' aria-hidden='true'></i></a>").Encoded(false);
+    }).Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid").Pageable(pager =>
+   {
+       pager.PageSizes = new Dictionary<Int32, String>
+    { { 0, "Todos" }, { 5, "5" }, { 10, "10" }, { 20, "20" }, { 50, "50" }, { 100, "100" } };
+    pager.ShowPageSizes = true;
+    pager.RowsPerPage = 5;
+    }).Css("table table-bordered table-hover table-sm")
+
+    )

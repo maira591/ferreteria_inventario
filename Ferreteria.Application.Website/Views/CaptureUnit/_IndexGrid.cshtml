@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Core.Application.Website.Models.CaptureUnitModel>
+@using NonFactors.Mvc.Grid
+@{
+    var urlEdit = @Url.Action("Edit", "CaptureUnit");
+    var urlDelete = @Url.Action("Delete", "CaptureUnit");
+}
+
+@(Html.Grid(Model).Build(columns =>
+{
+    columns.Add(c => c.Code).Titled("Código").Filterable(false);
+    columns.Add(c => c.Name).Titled("Nombre").UsingDefaultFilterMethod("contains");        
+    columns.Add(c => c.IsEnabled).Titled("Activo").RenderedAs(x => x.IsEnabled ? "SI" : "NO");
+    columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key' tabindex='0' data-tippy-content='Editar' onclick=\"CaptureUnit.OpenEdit('{urlEdit}?id={s.Id}');\"></i> <i class='fa fa-trash btn-lg text-danger-icon gel-tab-key' tabindex='0' data-tippy-content='Eliminar' style='margin-left:8px' onclick=\"CaptureUnit.Delete('{urlDelete}?id={s.Id}')\"></i></div>").Encoded(false);
+})
+.Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid")
+                                        .Pageable(pager =>
+                                        {
+                                            pager.PageSizes = new Dictionary<Int32, String> { { 0, "Todos" }, { 5, "5" }, { 10, "10" }, { 50, "50" }, { 100, "100" } };
+                                            pager.ShowPageSizes = true;
+                                            pager.RowsPerPage = 5;
+                                        }).Css("table table-bordered table-hover")
+
+)

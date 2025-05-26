@@ -1,0 +1,96 @@
+﻿@using Core.Application.Website.Models
+
+@model Core.Application.Website.Models.MaximunDateModel
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="MaximunDate" data-ajax="true" data-ajax-method="POST" id="formmaximundatecrud">
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.GuidCooperativeTypeId, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.GuidCooperativeTypeId, (IEnumerable<SelectListItem>)ViewBag.ListFormatTypes, "Seleccione", htmlAttributes: new { @class = "form-control select2 required", @style = "width:100%;" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.CutoffDate, htmlAttributes: new { @class = "col-form-label" })
+                    <div class="input-group dp-date">
+                        @{
+                            string fechacorte = (Model != null ? (Model.CutoffDate).ToString("dd/MM/yyyy") : "");
+                        }
+                        <input type="hidden" value="@fechacorte" id="hdf_CutoffDate" />
+                        @Html.TextBoxFor(model => model.CutoffDate, new { @class = "form-control required", @readonly = "readonly"})
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.GuidLoadTypeId, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.GuidLoadTypeId, (IEnumerable<SelectListItem>)ViewBag.ListLoadType, "Seleccione", htmlAttributes: new { @class = "form-control select2 required", @style = "width:100%;" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.MaxDate, htmlAttributes: new { @class = "col-form-label" })
+                    <div class="input-group dp-date">
+                        @{
+                            string fechaMax = (Model != null ? (Model.MaxDate).ToString("dd/MM/yyyy") : "");
+                        }
+                        <input type="hidden" value="@fechaMax" id="hdf_MaxDate" />
+                        @Html.TextBoxFor(model => model.MaxDate, new { @class = "form-control required", @readonly = "readonly"})
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.IsEnabled, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.CheckBoxFor(model => model.IsEnabled, new { @class = "form-check" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-format" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="MaximunDate.Save();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>
+
+<script>
+    //language: 'esp', clearBtn: true, format: "dd/mm / yyyy"
+    var options = { language: 'esp', format: "dd/mm/yyyy" };
+    $('.dp-date input').datepicker(options);
+
+    setMaxDate();
+    setCutoffDate();
+
+
+    $(function () {
+        MaximunDate.InitControls();
+        setSelect2();
+    });
+
+    function setMaxDate() {
+        $("#MaxDate").val($("#hdf_MaxDate").val());
+    }
+    function setCutoffDate() {
+        $("#CutoffDate").val($("#hdf_CutoffDate").val());
+    }
+</script>

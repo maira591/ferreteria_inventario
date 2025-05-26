@@ -1,0 +1,134 @@
+﻿@inject Ferreteria.Application.Website.Models.IUserBasicModel _sesion;
+@using System.Collections;
+@using Ferreteria.Application.Website.Models;
+@using Ferreteria.Application.Website.Providers;
+@{
+    var currentUser = _sesion.GetCurrentUser();
+
+    if (currentUser == null)
+    {
+        currentUser = new UserBasicModel();
+    }
+}
+
+<div class="sidebar bg-gradient-primary">
+    <!-- Sidebar -->
+	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="height:100%;">
+
+		<!-- Sidebar - Brand -->
+		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index", "Home")" data-tippy-content="Sistema de Gestión de Inventario">
+			<div class="sidebar-brand-text mx-3">Inventario</div>
+		</a>
+
+		<!-- Sidebar Toggler (Sidebar) -->
+		<div class="text-center d-none d-md-inline">
+			<hr class="sidebar-divider my-0 mb-3">
+			<button class="rounded-circle border-0" id="sidebarToggle" data-tippy-content="Pulse para recoger o expandir el menú."></button>
+			<hr class="sidebar-divider my-0">
+		</div>
+
+		@{
+			var hashMenu = new Hashtable();
+			var listPrivileges = new List<string>();
+			if (currentUser.Roles != null)
+			{
+				currentUser.Roles.ForEach((rol) =>
+				{
+					rol.Privileges.ForEach((privilege) =>
+			{
+				if (!listPrivileges.Contains(privilege.Code))
+				{
+					listPrivileges.Add(privilege.Code);
+				}
+			});
+				});
+			}
+		}
+		<!-- Divider -->
+		<!-- Nav Item - Dashboard -->
+
+		@if (listPrivileges.Contains(PrivilegesEnum.AdminUser.ToString()))
+		{
+			<li class="nav-item" id="parametrizacionRecaudoNav">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#parametrizacionRecaudo"
+				   aria-expanded="true" aria-controls="parametrizacionRecaudo" data-tippy-content="Pulse para ver el menú de Recaudo.">
+					<i class="fas fa-fw fa-users-cog"></i>
+					<span>Seguridad</span>
+				</a>
+				<div id="parametrizacionRecaudo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="@Url.Action("Index", "permissions")" data-tippy-content="Pulse para ir a Gestión de Permisos." id="nav-tasaMoraRecaudo">Permisos</a>
+						<a class="collapse-item" href="@Url.Action("Index", "Roles")" data-tippy-content="Pulse para ir a Gestión de Roles." id="nav-departamentosRecaudo">Roles</a>
+						<a class="collapse-item" href="@Url.Action("Index", "Users")" data-tippy-content="Pulse para ir a Gestión de Usuarios." id="nav-municipiosRecaudo">Usuarios</a>
+					</div>
+				</div>
+			</li>
+			<hr class="sidebar-divider">
+		}
+
+		@if (listPrivileges.Contains(PrivilegesEnum.AdminProduct.ToString()))
+		{
+			hashMenu.Add(PrivilegesEnum.AdminProduct.ToString(), true);
+			<li class="nav-item" data-tippy-content="Gestionar productos." id="nav-products">
+				<a class="nav-link" href="@Url.Action("Index", "Products")">
+					<i class="fas fa-fw fa-box"></i>
+					<span>Productos</span>
+				</a>
+			</li>
+			<hr class="sidebar-divider">
+		}
+
+
+		@if (listPrivileges.Contains(PrivilegesEnum.AdminCategory.ToString()))
+		{
+			hashMenu.Add(PrivilegesEnum.AdminCategory.ToString(), true);
+			<li class="nav-item" data-tippy-content="Gestionar categorías." id="nav-categories">
+				<a class="nav-link" href="@Url.Action("Index", "Categories")">
+					<i class="fas fa-fw fa-tags"></i>
+					<span>Categorías</span>
+				</a>
+			</li>
+			<hr class="sidebar-divider">
+		}
+
+
+		@if (listPrivileges.Contains(PrivilegesEnum.AdminSupplier.ToString()))
+		{
+			hashMenu.Add(PrivilegesEnum.AdminSupplier.ToString(), true);
+			<li class="nav-item" data-tippy-content="Gestionar proveedores." id="nav-suppliers">
+				<a class="nav-link" href="@Url.Action("Index", "Suppliers")">
+					<i class="fas fa-fw fa-truck"></i>
+					<span>Proveedores</span>
+				</a>
+			</li>
+			<hr class="sidebar-divider">
+		}
+
+
+		@if (listPrivileges.Contains(PrivilegesEnum.MakeSales.ToString()))
+		{
+			hashMenu.Add(PrivilegesEnum.MakeSales.ToString(), true);
+			<li class="nav-item" data-tippy-content="Realizar ventas." id="nav-sales">
+				<a class="nav-link" href="@Url.Action("Index", "Sales")">
+					<i class="fas fa-fw fa-cash-register"></i>
+					<span>Ventas</span>
+				</a>
+			</li>
+			<hr class="sidebar-divider">
+		}
+
+
+		@if (listPrivileges.Contains("ViewDashboard"))
+		{
+			hashMenu.Add("ViewDashboard", true);
+			<li class="nav-item" data-tippy-content="Pulse para ir al tablero." id="nav-dashboard">
+				<a class="nav-link" href="@Url.Action("Index", "Dashboard")">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Tablero Gráfico</span>
+				</a>
+			</li>
+		}
+
+	</ul>
+</div>
+<!-- End of Sidebar -->

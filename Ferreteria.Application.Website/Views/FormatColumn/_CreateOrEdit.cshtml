@@ -1,0 +1,116 @@
+﻿@using Core.Application.Website.Models
+
+@model Core.Application.Website.Models.FormatColumnModel
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="FormatColumn" data-ajax="true" data-ajax-method="POST" id="formformatcolumncrud">
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+        @Html.HiddenFor(model => model.FormatId)
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.FormatName, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.FormatName, new { @class = "form-control col-md-12 col-xs-12", @readonly = "true" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.NombreColumna, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.NombreColumna, new { @class = "form-control col-md-12 col-xs-12 textNumber2 required", placeholder = "Digite el nombre de la columna", @maxlength = 30 })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.TipoDato, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.TipoDato, (IEnumerable<SelectListItem>)ViewBag.ListTypes, htmlAttributes: new { @class = "form-control", @style = "width:100%;", onchange = "FormatColumn.ChangeDataType();" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.LongitudDato, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.LongitudDato, new { @class = "form-control col-md-12 col-xs-12 inputPositiveInput2d required", placeholder = "Digite la longitud de la columna", @maxlength = 6 })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.AceptaNulos, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.SelectAceptaNulos, (IEnumerable<SelectListItem>)ViewBag.ListYesNo, htmlAttributes: new { @class = "form-control", @style = "width:100%;" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Orden, new { @class = "form-control col-md-12 col-xs-12 inputPositiveInput required", placeholder = "Digite el orden", @maxlength = 3 })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.NombreColumnaExcel, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.NombreColumnaExcel, new { @class = "form-control col-md-12 col-xs-12 required", placeholder = "Digite el nombre a mostrar", @maxlength = 100 })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.StorageColumn, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.StorageColumn, new { @class = "form-control col-md-12 col-xs-12", placeholder = "Digite la columna de almacenamiento", @maxlength = 30 })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.HomologationId, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.HomologationId, (IEnumerable<SelectListItem>)ViewBag.ListHomologations, "-- Seleccione --", htmlAttributes: new { @class = "form-control select2", @style = "width:100%;" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.IsCalculated, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.CheckBoxFor(model => model.IsCalculated) 
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="divFormula" style="display:none;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    @Html.LabelFor(model => model.Formula, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextAreaFor(model => model.Formula, new { @class = "form-control col-md-12 col-sm-12 col-xs-12", placeholder = "Digite la formula", @maxlength = 4000, @rows = "3", @style = "resize:none;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="FormatColumn.SaveFormatColumn();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>
+<script>
+
+    $(function () {
+        setSelect2();
+        FormatColumn.SetEventIsCalculate();
+    });
+
+</script>

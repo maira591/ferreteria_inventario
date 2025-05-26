@@ -1,0 +1,125 @@
+﻿@using Core.Application.Website.Models
+
+@model Core.Application.Website.Models.ReportParameterDefinitionModel
+
+
+<style>
+    .modal-dialog-centered {
+        top: 7% !important;
+    }
+</style>
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="ReportParameter" data-ajax="true" data-ajax-method="POST" id="form-report-parameter-crud">
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-12 col-xs-12 required", placeholder = "Digite el nombre del parámetro", @maxlength = 60 })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.ReplaceKey, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @if (Model.ReportParameterList != null && Model.ReportParameterList.Count > 0)
+                        {
+                            @Html.TextBoxFor(model => model.ReplaceKey, new { @class = "form-control col-md-12 col-xs-12 required textNumber", placeholder = "Digite el la llave", @maxlength = 60, @readonly = "readonly" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(model => model.ReplaceKey, new { @class = "form-control col-md-12 col-xs-12 required textNumber", placeholder = "Digite el la llave", @maxlength = 60 })
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.DataType, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.DataType, (IEnumerable<SelectListItem>)ViewBag.ListDataTypes, htmlAttributes: new { @class = "form-control", @style = "width:100%;", onchange = "ReportParameter.ChangeDataType();" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 tipoLista" style="@(Model.DataType == "LISTA" ? "" : "display:none;")">
+                    @Html.LabelFor(model => model.ListType, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.DropDownListFor(model => model.ListType, (IEnumerable<SelectListItem>)ViewBag.ListTypes, htmlAttributes: new { @class = $"form-control {(Model.DataType == "LISTA" ? "required" : "")}", @style = "width:100%;", onchange = "ReportParameter.ChangeDataType();" })
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.IsRequired, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-check" style="margin-top: -20px;">
+                            <label class="form-check-label" tabindex="-1">
+                                @Html.CheckBoxFor(model => model.IsRequired, new { @class = "form-check-input", @tabindex = "-1" })
+                                <span class="form-check-sign gel-tab-key" data-tippy-content="Pulse para Seleccionar.">
+                                    <span class="check" tabindex="-1"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row tipoLista" style="@(Model.DataType == "LISTA" ? "" : "display:none;") width:100%;">
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-3" style="margin-left:12px; ">
+                    <ul class="nav nav-tabs" id="myTab" role="tab">
+                        <li class="nav-item" role="presentation" data-istab="true">
+                            <a id="sql-tab" class="nav-link active" data-toggle="tab" href="#queryWritter" role="tab" aria-controls="formatErrors">Sentencia SQL</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab mr-4">
+                        <div role="tabpanel" class="tab-pane active" id="queryWritter">
+                            <br />
+                            @Html.TextAreaFor(model => model.SQLSentence, htmlAttributes: new { @class = "form-control", rows = "1", @maxlength = 500 })
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-parameter" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="ReportParameter.Save();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>
+
+<script src="~/js/core/Formulator/ace.js" asp-append-version="true"></script>
+<script src="~/js/core/Formulator/theme-sqlserver.js" asp-append-version="true"></script>
+<script src="~/js/core/Formulator/mode-sqlserver.js" asp-append-version="true"></script>
+<script src="~/js/core/Formulator/jquery-ace.js" asp-append-version="true"></script>
+
+<script>
+    $(function () {
+        $('#nav-parametrization').click();
+        $('#nav-report-parameter').parent().addClass('active');
+        $('#SQLSentence').ace({ theme: 'sqlserver', lang: 'sqlserver' }, function () { alert(1); });
+        $('.ace_editor').css('width', '100%').css('height', '100px');
+
+        $('#parametrizacionNav').addClass('active');
+        $('#parametrizacion').addClass('show');
+        $('#nav-report-parameter').addClass('active');
+    });
+
+</script>

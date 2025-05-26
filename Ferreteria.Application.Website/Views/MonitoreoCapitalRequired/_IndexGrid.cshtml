@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Core.Application.Website.Models.Monitoreo.CapitalRequeridoModel>
+@using NonFactors.Mvc.Grid
+@{
+    var urlEdit = @Url.Action("Edit");
+}
+
+@(Html.Grid(Model).Build(columns =>
+{
+    columns.Add(c => c.Anio).Titled("Año").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.Ipc).Titled("IPC").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.CapitalFinanciera).Titled("Capital Financiera").UsingDefaultFilterMethod("contains");    
+    columns.Add(c => c.CapitalSolidaria).Titled("Capital Solidaria").Filterable(false).Sortable(false);
+    columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key {(s.Anio.Equals(DateTime.Now.Year)? "":"d-none")}' tabindex='0' data-tippy-content='Editar' onclick=\"CapitalRequired.OpenEdit('{urlEdit}?id={s.Id}');\"></i></div>").Encoded(false);    
+}).Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid")
+                                        .Pageable(pager =>
+                                        {
+                                            pager.PageSizes = new Dictionary<Int32, String> { { 0, "Todos" }, { 5, "5" }, { 10, "10" }, { 50, "50" }, { 100, "100" } };
+                                            pager.ShowPageSizes = true;
+                                            pager.RowsPerPage = 5;
+                                        }).Css("table table-bordered table-hover")
+
+)

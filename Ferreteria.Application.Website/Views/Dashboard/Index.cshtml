@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Tablero Gráfico";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">@string.Concat(ViewBag.CooperativeName, "Tablero Gráfico")</h1>
+    </div>
+
+
+</div>
+<!-- /.container-fluid -->
+
+<div class="col-md-12 col-xl-12 col-sm-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <div class="row">
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                    @Html.Label(null, "Fecha Corte", htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12", @style = "color:white" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="input-group dp-date">
+                            @Html.TextBox("cutoffDate", DateTime.Now.ToString("dd/MM/yyyy"), new { @class = "form-control"})
+                        </div>
+
+                    </div>
+                </div>
+
+                @if (ViewBag.ShowCooperativeFilters)
+                {
+                    <input type="hidden" id="validateCoop" value="S" />
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        @Html.Label(null, "Tipo Cooperativa", htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.DropDownList("EntityType", (IEnumerable<SelectListItem>)ViewBag.EntityTypeList, "Seleccione", htmlAttributes: new { @class = "form-control required", @style = "width:100%;" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        @Html.Label(null, "Cooperativa", htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            @Html.DropDownList("EntityCode", (IEnumerable<SelectListItem>)ViewBag.EntityCodeList, "Seleccione", htmlAttributes: new { @class = "form-control required", @style = "width:100%;" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <input type="hidden" id="validateCoop" value="N" />
+                    <input type="hidden" id="EntityCode" value="@ViewBag.EntityCode" />
+                    <input type="hidden" id="EntityType" value="@ViewBag.EntityType" />
+                }
+
+                <div class="col-md-1 col-sm-1 col-xs-12" style="padding-top: 35px;">
+                    <button type="button" onclick="Dashboard.Search();" class="btn btn-white btn-round btn-just-icon text-white" data-tippy-content="Pulse para Consultar.">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="div_dashboard"></div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/vendor/charjs_4_2/charjs-4_2_1.js"></script>
+<script src="~/vendor/charjs_4_2/chartjs-plugin-datalabels-v2_0_0.js"></script>
+
+<script src="~/js/core/dashboard/dashboard.js" asp-append-version="true"></script>
+
+
+@section Scripts{
+
+    <script>
+
+        $(function () {
+            $('#nav-dashboard').addClass('active');
+            Dashboard.Init();
+        });
+
+    </script>
+}

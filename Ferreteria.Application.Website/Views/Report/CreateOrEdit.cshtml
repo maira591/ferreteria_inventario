@@ -1,0 +1,262 @@
+﻿@model Core.Application.Website.Models.ReportModel
+@{
+    ViewBag.Title = "Reportes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/core/Formulator/Index.css" rel="stylesheet" asp-append-version="true" />
+<style>
+    .disabledTab {
+        pointer-events: none;
+    }
+</style>
+<script type="text/javascript">
+    showLoading();
+</script>
+
+<form id="form-report-crud" asp-action="CreateOrUpdate" asp-controller="Report" data-ajax="true" data-ajax-method="POST">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="baseUrl" name="baseUrl" value="@ViewBag.UrlBase" />
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ReportParameters)
+    @Html.HiddenFor(model => model.ReportColumns)
+    @Html.HiddenFor(model => model.ReportPermissions)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedOn)
+
+    <div class="col-md-12 col-xl-12 col-sm-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-inline">
+                            <h4 class="card-title ">
+                                @ViewBag.TitlePage
+                            </h4>
+                        </div>
+                        <p class="card-category">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="tab" role="tabpanel">
+                        <div class="col-sm-12">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="col-sm-2">
+                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label" })
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "form-control required", autocomplete = "off", @maxlength = 60 })
+                                    </div>
+                                    <div class="col-sm-2">
+                                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-form-label" })
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control required", autocomplete = "off", @style = "width:100%; resize:none;", rows = "3", @maxlength = 250 })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="col-sm-2">
+                                        @Html.LabelFor(model => model.CodeTable, htmlAttributes: new { @class = "col-form-label" })
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @Html.DropDownListFor(model => model.CodeTable, (IEnumerable<SelectListItem>)ViewBag.ListTable, "Seleccione", htmlAttributes: new { @class = "form-control select2", @style = "width:100%;" })
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        @Html.LabelFor(model => model.ReportColumns, htmlAttributes: new { @class = "col-form-label" })
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @Html.DropDownListFor(model => model.ColumnReportId, (IEnumerable<SelectListItem>)ViewBag.ListColumns, htmlAttributes: new { @class = "form-control multiselect", @style = "width:100%;", multiple = "multiple" })
+                                    </div>
+
+                                </div>
+                                @**@
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="col-sm-2">
+                                        @Html.LabelFor(model => model.ReportPermissions, htmlAttributes: new { @class = "col-form-label" })
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @Html.DropDownListFor(model => model.ReportPermissionId, (IEnumerable<SelectListItem>)ViewBag.ListRolePermissions, htmlAttributes: new { @class = "form-control multiselect required", @style = "width:100%;", multiple = "multiple" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 contParameters" style="display:none;">
+                                    @if (Model.IsOnlySQL)
+                                    {
+                                        <div class="col-sm-2">
+                                            @Html.LabelFor(model => model.ReportParameters, htmlAttributes: new { @class = "col-form-label" })
+                                        </div>
+                                        <div class="col-sm-12">
+                                            @Html.DropDownListFor(model => model.ReportParameterId, (IEnumerable<SelectListItem>)ViewBag.ListReportParameters, htmlAttributes: new { @class = "form-control", @style = "width:100%;", multiple = "multiple" })
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.LabelFor(model => model.IsOnlySQL, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                @Html.CheckBoxFor(model => model.IsOnlySQL, new { @class = "form-check" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.LabelFor(model => model.PreView, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                @Html.CheckBoxFor(model => model.PreView, new { @class = "form-check" })
+                                            </div>
+                                        </div>
+                                        @if (Model.Id != Guid.Empty)
+                                        {
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                @Html.LabelFor(model => model.IsEnabled, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    @Html.CheckBoxFor(model => model.IsEnabled, new { @class = "form-check" })
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="width:100%;">
+                            <div class="col-md-12 col-sm-12 col-xs-12 mt-3" style=" width: 90%;">
+                                <ul class="nav nav-tabs" id="myTab" role="tab">
+                                    <li class="nav-item" role="presentation" data-istab="true" id="tapParameters">
+                                        <a id="formulator-tab" data-toggle="tab" class="nav-link active" href="#formulator" role="tab" aria-controls="uploadFormats">Parámetros</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation" data-istab="true">
+                                        <a id="sql-tab" class="nav-link" data-toggle="tab" href="#queryWritter" role="tab" aria-controls="formatErrors">Sentencia SQL</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content tab">
+                                    <div role="tabpanel" class="tab-pane active" id="formulator">
+                                        <div class="cuerpo-formulador">
+                                            <br />
+                                            <div id="FormulaCont"></div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="queryWritter">
+                                        <br />
+                                        @Html.TextAreaFor(model => model.SQLSentence, htmlAttributes: new { @class = "form-control", rows = "10", @maxlength = 4000 })
+                                        <br />
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4" style="margin-left: 37px;">
+
+                                    <input type="button" value="Guardar" class="btn btn-primary mr-2" data-tippy-content="Pulse para Guardar." onclick="Report.Save('@Url.Action("Validations")', '@Url.Action("CreateOrUpdate")');" />
+                                    @Html.ActionLink("Regresar", "Index", "Report", null, new { @class = "btn btn-secondary", data_tippy_content = "Pulse para Regresar." })
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/js/core/Report/FormulatorParameter.js" asp-append-version="true"></script>
+<script src="~/js/core/Report/Report.js" asp-append-version="true"></script>
+<script src="~/js/core/Formulator/ace.js" asp-append-version="true"></script>
+<script src="~/js/core/Formulator/theme-sqlserver.js" asp-append-version="true"></script>
+<script src="~/js/core/Formulator/mode-sqlserver.js" asp-append-version="true"></script>
+<script src="~/js/core/Formulator/jquery-ace.js" asp-append-version="true"></script>
+<script src="~/js/core/Petitions/Petitions.js"></script>
+<script src="~/js/jquery.unobtrusive-ajax.js"></script>
+
+@section Scripts{
+    <script>
+
+        $(function () {
+
+            $('#nav-parametrization').click();
+            $('#nav-report').parent().addClass('active');
+
+            $('#parametrizacionNav').addClass('active');
+            $('#parametrizacion').addClass('show');
+            $('#nav-report').addClass('active');
+
+            $('#SQLSentence').ace({ theme: 'sqlserver', lang: 'sqlserver' }, function () { alert(1); });
+            $('.ace_editor').css('width', '100%').css('height', '200px');
+
+            $('#CodeTable').select2();
+            CreateAllTooltips();
+            addKeyboardEvents();
+            hideLoading();
+        });
+
+        $(document).ready(function () {
+            FormulatorParameter.GetListParameters();
+            $('#ReportPermissionId').multiselect({
+                includeSelectAllOption: false,
+                enableCaseInsensitiveFiltering: true,
+                filterPlaceholder: 'Buscar ...',
+                maxHeight: 150,
+                onChange: function (option, checked) {
+                    Report.GetSelectedReportPermission();
+                },
+                buttonTextAlignment: 'left',
+                buttonWidth: '100%'
+            });
+
+            $('#ColumnReportId').multiselect({
+                includeSelectAllOption: false,
+                enableCaseInsensitiveFiltering: true,
+                filterPlaceholder: 'Buscar ...',
+                maxHeight: 150,
+                onChange: function (option, checked) {
+                    Report.GetSelectedReportColumns(false);
+                },
+                buttonTextAlignment: 'left',
+                buttonWidth: '100%'
+            });
+
+            $('#ReportParameterId').multiselect({
+                includeSelectAllOption: false,
+                enableCaseInsensitiveFiltering: true,
+                filterPlaceholder: 'Buscar ...',
+                maxHeight: 150,
+                onChange: function (option, checked) {
+                    Report.GetSelectedReportParameter(option, checked);
+                    Report.SetReplaceKey(option, checked);
+                },
+                buttonTextAlignment: 'left',
+                buttonWidth: '100%'
+            });
+
+            if ($("#ReportPermissions").val() != "") {
+                Report.SetReportPermissionSelection();
+            }
+
+            if ($("#ReportParameters").val() != "") {
+                Report.SetReportParameterSelection();
+            }
+
+            if ($("#ReportColumns").val() != "") {
+                Report.SetReportColumnSelection();
+            }
+
+            $("#IsOnlySQL").change(function () {
+                Report.ChangeOnlySQL(this)
+            });
+
+            Report.GetListTablesWithType();
+            Report.InitControls();
+
+        });
+    </script>
+}

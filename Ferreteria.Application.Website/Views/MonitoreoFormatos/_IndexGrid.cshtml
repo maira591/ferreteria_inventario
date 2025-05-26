@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Core.Application.Website.Models.Monitoreo.FormatoModel>
+@using NonFactors.Mvc.Grid
+@{
+    var urlEdit = @Url.Action("Edit");
+    var urlDelete = @Url.Action("Delete");
+}
+
+@(
+Html.Grid(Model).Build(columns =>
+{
+    columns.Add(c => c.Codfor).Titled("Código").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.Nomfor).Titled("Nombre").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.Circular).Titled("Circular").UsingDefaultFilterMethod("contains");
+
+    columns.Add(c => c.FechaCircular).Titled("Fecha Circular").RenderedAs(s => (s.FechaCircular.HasValue ? s.FechaCircular.Value.ToString("dd/MM/yyyy") : "")).Formatted("{0:d}").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.TablaAlmacena).Titled("Tabla Almacena").UsingDefaultFilterMethod("contains");
+    columns.Add(c => c.EntidadAplica).Titled("Entidad Aplica")
+            .RenderedAs(x=> x.EntidadAplica == Domain.Utils.TypeFormatMonitoreo.TypeSolidary ? Domain.Utils.TypeFormatMonitoreo.Solidary : 
+                            x.EntidadAplica == Domain.Utils.TypeFormatMonitoreo.TypeFinancial ? Domain.Utils.TypeFormatMonitoreo.Financial : 
+                            x.EntidadAplica == Domain.Utils.TypeFormatMonitoreo.TypeFinancialAndSolidarity ? Domain.Utils.TypeFormatMonitoreo.FinancialAndSolidarity : "");
+    columns.Add(c => c.Estado).Titled("Activo").RenderedAs(x => x.Estado ? "SI" : "NO").Sortable(false);
+
+                            columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key' tabindex='0' data-tippy-content='Editar' onclick=\"Formatos.OpenEdit('{urlEdit}?id={s.Codfor}');\"></i></div>").Encoded(false);
+}).Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid")
+                                        .Pageable(pager =>
+                                        {
+                                            pager.PageSizes = new Dictionary<Int32, String> { { 0, "Todos" }, { 5, "5" }, { 10, "10" }, { 50, "50" }, { 100, "100" } };
+                                            pager.ShowPageSizes = true;
+                                            pager.RowsPerPage = 5;
+                                        }).Css("table table-bordered table-hover")
+
+)

@@ -1,0 +1,50 @@
+﻿@model Core.Application.Website.Models.Recaudo.DepartamentosModel
+<!-- Modal -->
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-user-create-title">@ViewBag.TitleModal</h5>
+</div>
+<div class="modal-body" id="modal-user-create-body" style="overflow-y: auto;">
+    <form asp-action="CreateOrUpdate" asp-controller="Format" data-ajax="true" data-ajax-method="POST" id="formDepartamentoslcrud">
+
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.IsNew)
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Departamento, htmlAttributes: new { @class = "col-form-label col-md-12 col-xs-12" })
+                    <div class="col-md-12 col-xs-12 input-group">
+
+                        @Html.TextBoxFor(model => model.Departamento, new { @class = "form-control col-md-12 col-xs-12 inputPositiveInput2d required", placeholder = "Digite el Código del Departamento" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "col-form-label col-md-12 col-xs-12" })
+                    <div class="col-md-12 col-xs-12 input-group">
+
+                        @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control col-md-12 col-xs-12 required", placeholder = "Digite el Nombre del Departamento" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Indicativo, htmlAttributes: new { @class = "col-form-label col-md-12 col-sm-12 col-xs-12" })
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @Html.TextBoxFor(model => model.Indicativo, new { @class = "form-control col-md-12 col-xs-12 inputPositiveInput2d required", placeholder = "Digite el Indicativo del Departamento", @maxlength = 5 })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="d-none">
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-create-format" data-tippy-content="Pulse para Guardar." />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" onclick="hideModalPartial();" data-tippy-content="Pulse para Cancelar.">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="Departamentos.Save();" data-tippy-content="Pulse para Guardar.">Guardar</button>
+</div>

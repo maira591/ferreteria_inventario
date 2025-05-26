@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ferreteria.DataAccess\Ferreteria.DataAccess.csproj" />
+    <ProjectReference Include="..\Ferreteria.Domain\Ferreteria.Domain.csproj" />
+    <ProjectReference Include="..\Ferreteria.Infrastructure\Ferreteria.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Core.Application.Website.Models.ValuesCatalogModel>
+@using NonFactors.Mvc.Grid
+@{
+    var urlEdit = @Url.Action("Edit", "ValueCatalog");
+    var urlDelete = @Url.Action("Delete", "ValueCatalog");
+}
+
+@(Html.Grid(Model).Build(columns =>
+{
+
+    columns.Add(model => model.Code).Titled("Código Valor");
+    columns.Add(model => model.NameDisplay).Titled("Nombre Valor");
+    columns.Add(model => model.Description).Titled("Descripción Valor");
+    columns.Add(model => model.TextIsEncrypted).Titled("¿Cifrado?");    
+    columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key' tabindex='0' data-tippy-content='Editar' onclick=\"Catalogs.OpenEdit('{urlEdit}?id={s.Id}');\"></i> <i class='fa fa-trash btn-lg text-danger-icon gel-tab-key' tabindex='0' data-tippy-content='Eliminar' style='margin-left:8px' onclick=\"Catalogs.DeleteValueCatalog('{urlDelete}?id={s.Id}&idCatalog={s.CatalogId}','{s.CatalogId}')\"></i></div>").Encoded(false);
+})
+)
+<br />
+<br />
