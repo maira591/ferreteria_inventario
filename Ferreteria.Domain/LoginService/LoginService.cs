@@ -6,6 +6,7 @@ using Ferreteria.Domain.LogService;
 using Ferreteria.Domain.ViewModel;
 using Ferreteria.Domain.ViewModel.Auth;
 using Ferreteria.Domain.ViewModel.Login;
+using Ferreteria.Domain.ViewModel.Security;
 using Ferreteria.Infrastructure.Configuration;
 using Ferreteria.Infrastructure.Extensions;
 using Newtonsoft.Json;

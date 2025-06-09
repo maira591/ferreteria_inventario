@@ -19,10 +19,11 @@ namespace Ferreteria.DataAccess.Model
         [Key]
         [Column("permission_id")]
         public int PermissionId { get; set; }
+        [ForeignKey(nameof(RoleId))]
+        public Role Role { get; set; }
 
-        public Role Role { get; set; } = new();
-
-        public Permission Permission { get; set; } = new();
+        [ForeignKey(nameof(PermissionId))]
+        public Permission Permission { get; set; }
     }
 
     #endregion

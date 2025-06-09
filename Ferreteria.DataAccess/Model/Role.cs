@@ -24,9 +24,9 @@ namespace Ferreteria.DataAccess.Model
         [Column("is_enabled")]
         public bool IsEnabled { get; set; } = true;
 
-        public List<UserRole> UserRoles { get; set; } = new();
+        public List<UserRole> UserRoles { get; set; } = [];
 
-        public List<RolePermission> RolePermissions { get; set; } = new();
+        public List<RolePermission> RolePermissions { get; set; } = [];
     }
 
     #endregion

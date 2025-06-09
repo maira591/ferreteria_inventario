@@ -49,17 +49,17 @@
 
 		@if (listPrivileges.Contains(PrivilegesEnum.AdminUser.ToString()))
 		{
-			<li class="nav-item" id="parametrizacionRecaudoNav">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#parametrizacionRecaudo"
-				   aria-expanded="true" aria-controls="parametrizacionRecaudo" data-tippy-content="Pulse para ver el menú de Recaudo.">
+			<li class="nav-item" id="securityNav">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#security"
+				   aria-expanded="true" aria-controls="security" data-tippy-content="Pulse para ver el menú de Seguridad.">
 					<i class="fas fa-fw fa-users-cog"></i>
 					<span>Seguridad</span>
 				</a>
-				<div id="parametrizacionRecaudo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div id="security" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="@Url.Action("Index", "permissions")" data-tippy-content="Pulse para ir a Gestión de Permisos." id="nav-tasaMoraRecaudo">Permisos</a>
-						<a class="collapse-item" href="@Url.Action("Index", "Roles")" data-tippy-content="Pulse para ir a Gestión de Roles." id="nav-departamentosRecaudo">Roles</a>
-						<a class="collapse-item" href="@Url.Action("Index", "Users")" data-tippy-content="Pulse para ir a Gestión de Usuarios." id="nav-municipiosRecaudo">Usuarios</a>
+						<a class="collapse-item" href="@Url.Action("Index", "Permission")" data-tippy-content="Pulse para ir a Gestión de Permisos." id="nav-permission">Permisos</a>
+						<a class="collapse-item" href="@Url.Action("Index", "Role")" data-tippy-content="Pulse para ir a Gestión de Roles." id="nav-role">Roles</a>
+						<a class="collapse-item" href="@Url.Action("Index", "User")" data-tippy-content="Pulse para ir a Gestión de Usuarios." id="nav-user">Usuarios</a>
 					</div>
 				</div>
 			</li>

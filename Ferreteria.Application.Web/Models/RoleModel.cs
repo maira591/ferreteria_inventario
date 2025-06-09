@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
+﻿using Ferreteria.Domain.ViewModel.Security;
 using System.ComponentModel.DataAnnotations;
 
 namespace Ferreteria.Application.Website.Models
@@ -15,17 +13,24 @@ namespace Ferreteria.Application.Website.Models
         [Display(Name = "Habilitado")]
         public bool IsEnabled { get; set; }
         [Display(Name = "Permisos")]
-        public List<PrivilegeModel> Privileges { get; set; }
+        public List<PermissionModel> Privileges { get; set; } = new();
+        [Display(Name = "Permisos")]
+        public string Permissions { get; set; } = string.Empty;
+        public string PermissionId { get; set; } = string.Empty;
+        public string PermissionsNames { get; set; } = string.Empty;
+
+        public List<RolePermissionVM> RolePermissions { get; set; } = [];
+
     }
 
-    public class PrivilegeModel
+    public class PermissionModel
     {
-        public int Id { get; set; }
-        [Display(Name = "Privilegio")]
+        public int PermissionId { get; set; }
+        [Display(Name = "Nombre Privilegio")]
         public string Name { get; set; } = string.Empty;
+        [Display(Name = "Código Privilegio")]
         public string Code { get; set; } = string.Empty;
+        [Display(Name = "Activo")]
         public bool IsEnabled { get; set; }
-
     }
-
 }

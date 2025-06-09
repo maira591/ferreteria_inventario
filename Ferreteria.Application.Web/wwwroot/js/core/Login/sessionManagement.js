@@ -5,21 +5,7 @@ var minutesCountDown;
 var secondsCountDown;
 
 function StartIntervalSession() {
-    ClearIntervalsVerifySession();
-    $('#backModalQuestionSession').hide();
-    $('#modalQuestionSession').modal('hide');
-    $('#timerModalQuestionSession').html(`0${minutesCountDown}:${secondsCountDown < 10 ? '0' + secondsCountDown : secondsCountDown}`);
-
-    let timeoutSession = parseInt($('#timeoutSessionInMilliseconds').val());
-    timeoutSession = (timeoutSession === null || isNaN(timeoutSession)) ? 1800000 : timeoutSession;
-
-    intervalSession = setInterval(function () {
-        $('#backModalQuestionSession').show();
-        $('#modalQuestionSession').modal('show');
-
-        ClearIntervalsVerifySession();
-        StartIntervalCountDown();
-    }, timeoutSession );
+   
 }
 
 function StartIntervalCountDown() {
