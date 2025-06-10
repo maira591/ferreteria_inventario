@@ -1,33 +1,35 @@
-﻿var Permission = (function () {
-    function Permission() {
+﻿var Category = (function () {
+    function Category() {
 
     }
 
     //Método encargado de abrir la ventana para editar
-    Permission.OpenEdit = function (urlEdit) {
+    Category.OpenEdit = function (urlEdit) {
+        showLoading();
         Petitions.Get(urlEdit, function (response) {
-            showLoading();
             $('#modal-partial-content').html(response);
             showModalResult();
             setAlphanumericInput();
+            
+
             hideLoading();
         });
     };
 
     //Método encargado de recargar la información
-    Permission.Reload = function () {
+    Category.Reload = function () {
         new MvcGrid(document.querySelector('.mvc-grid')).reload();
     };
 
-    //Método encargado de realizar el borrado.
-    Permission.Delete = function (url) {
+    //Método encargado de realizar el borrado
+    Category.Disabled = function (url) {
         ShowModalQuestion('Advertencia', '¿Desea eliminar este registro?', function () {
             Petitions.Get(url, function (response) {
                 HideModalQuestion();
 
                 if (response.Success) {
                     showAlert(response.Message, 'success');
-                    Periodicity.Reload();
+                    Category.Reload();
                 } else {
                     showAlert(response.Message);
                 }
@@ -35,43 +37,27 @@
         });
     };
 
-
-    //Método encargado de realizar el borrado de un tipo de carga.
-    Permission.Disabled = function (url) {
-        ShowModalQuestion('Advertencia', '¿Desea eliminar este registro?', function () {
-            Petitions.Get(url, function (response) {
-                HideModalQuestion();
-
-                if (response.Success) {
-                    showAlert(response.Message, 'success');
-                    Permission.Reload();
-                } else {
-                    showAlert(response.Message);
-                }
-            });
-        });
-    };
-
-    Permission.OpenCreate = function (url) {
+    Category.OpenCreate = function (url) {
         showLoading();
         Petitions.Get(url, function (response) {
             $('#modal-partial-content').html(response);
             showModalResult();
             setAlphanumericInput();
+            
             hideLoading();
         });
     };
 
-    Permission.Save = function () {
-        var obj = getObject("formPermissioncrud");
+    Category.Save = function () {
+        var obj = getObject("formCategorycrud");
 
-        if (formValidation("formPermissioncrud")) {
+        if (formValidation("formCategorycrud")) {
             showLoading("Validando...");
 
             $.ajaxSetup({ cache: false });
             $.ajax({
                 ContentType: "application/json",
-                url: 'Permission/Validations',
+                url: 'Category/Validations',
                 type: 'POST',
                 data: obj,
                 success: function (data) {
@@ -81,18 +67,18 @@
                     }
                     else {
                         showLoading("Guardando...");
-                        ExecuteAjax("Permission/CreateOrUpdate", "Post", obj, "Permission.ResultSave");
+                        ExecuteAjax("Category/CreateOrUpdate", "Post", obj, "Category.ResultSave");
                     }
                 },
                 error: function (jqXHR, exception) {
-                    showAlert("No fue posible realizar la validación del permiso.", 'danger');
+                    showAlert("No fue posible realizar la validación del proveedor.", 'danger');
                     hideLoading();
                 }
             });
         }
     };
 
-    Permission.ResultSave = function (response) {
+    Category.ResultSave = function (response) {
         hideLoading();
         if (response.Success) {
             showAlert(response.Message, 'success');
@@ -100,8 +86,8 @@
             showAlert(response.Message, 'danger');
         }
         hideModalPartial();
-        Permission.Reload();
+        Category.Reload();
     };
 
-    return Permission;
+    return Category;
 })();

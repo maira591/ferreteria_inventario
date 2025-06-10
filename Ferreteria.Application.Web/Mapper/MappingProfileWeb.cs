@@ -15,6 +15,10 @@ namespace Ferreteria.Application.Website.Mapping
             CreateMap<UserModelComplete, UserBasicModel>().ReverseMap();
             CreateMap<PermissionModel, PermissionVM>().ReverseMap();
             CreateMap<RoleModel, RoleVM>().ReverseMap();
+            CreateMap<UserInfoModel, UserVM>().ReverseMap();
+            CreateMap<SupplierModel, SupplierVM>().ReverseMap();
+            CreateMap<ProductModel, ProductVM>().ReverseMap();
+            CreateMap<CategoryModel, CategoryVM>().ReverseMap();
         }
     }
 }

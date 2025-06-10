@@ -15,6 +15,9 @@ namespace Ferreteria.Infrastructure.Mapping
             CreateMap<RolePermission, RolePermissionVM>().ReverseMap();
             CreateMap<UserRole, UserRoleVM>().ReverseMap();
             CreateMap<User, UserVM>().ReverseMap();
+            CreateMap<Supplier, SupplierVM>().ReverseMap();
+            CreateMap<Product, ProductVM>().ReverseMap();
+            CreateMap<Category, CategoryVM>().ReverseMap();
         }
     }
 }

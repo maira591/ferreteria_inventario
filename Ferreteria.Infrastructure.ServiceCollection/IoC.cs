@@ -1,11 +1,14 @@
 ﻿using Ferreteria.DataAccess.Core;
 using Ferreteria.DataAccess.EF;
-using Ferreteria.Domain.LoadTypeService;
+using Ferreteria.Domain.CategoryService;
 using Ferreteria.Domain.LoginService;
 using Ferreteria.Domain.LogService;
 using Ferreteria.Domain.PermissionService;
 using Ferreteria.Domain.RolePermissionService;
 using Ferreteria.Domain.RoleService;
+using Ferreteria.Domain.SupplierService;
+using Ferreteria.Domain.UserRoleService;
+using Ferreteria.Domain.UserService;
 using Ferreteria.Infrastructure.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +26,10 @@ namespace Ferreteria.Infrastructure.ServiceCollection
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IRolePermissionService, RolePermissionService>();
+            services.AddScoped<IUserRoleService, UserRoleService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
     }
 }

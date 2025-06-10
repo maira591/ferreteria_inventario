@@ -1,26 +1,28 @@
-﻿var Permission = (function () {
-    function Permission() {
+﻿var Supplier = (function () {
+    function Supplier() {
 
     }
 
     //Método encargado de abrir la ventana para editar
-    Permission.OpenEdit = function (urlEdit) {
+    Supplier.OpenEdit = function (urlEdit) {
+        showLoading();
         Petitions.Get(urlEdit, function (response) {
-            showLoading();
             $('#modal-partial-content').html(response);
             showModalResult();
             setAlphanumericInput();
+            setNumericInput();
+
             hideLoading();
         });
     };
 
     //Método encargado de recargar la información
-    Permission.Reload = function () {
+    Supplier.Reload = function () {
         new MvcGrid(document.querySelector('.mvc-grid')).reload();
     };
 
     //Método encargado de realizar el borrado.
-    Permission.Delete = function (url) {
+    Supplier.Delete = function (url) {
         ShowModalQuestion('Advertencia', '¿Desea eliminar este registro?', function () {
             Petitions.Get(url, function (response) {
                 HideModalQuestion();
@@ -37,14 +39,14 @@
 
 
     //Método encargado de realizar el borrado de un tipo de carga.
-    Permission.Disabled = function (url) {
+    Supplier.Disabled = function (url) {
         ShowModalQuestion('Advertencia', '¿Desea eliminar este registro?', function () {
             Petitions.Get(url, function (response) {
                 HideModalQuestion();
 
                 if (response.Success) {
                     showAlert(response.Message, 'success');
-                    Permission.Reload();
+                    Supplier.Reload();
                 } else {
                     showAlert(response.Message);
                 }
@@ -52,26 +54,27 @@
         });
     };
 
-    Permission.OpenCreate = function (url) {
+    Supplier.OpenCreate = function (url) {
         showLoading();
         Petitions.Get(url, function (response) {
             $('#modal-partial-content').html(response);
             showModalResult();
             setAlphanumericInput();
+            setNumericInput();
             hideLoading();
         });
     };
 
-    Permission.Save = function () {
-        var obj = getObject("formPermissioncrud");
+    Supplier.Save = function () {
+        var obj = getObject("formSuppliercrud");
 
-        if (formValidation("formPermissioncrud")) {
+        if (formValidation("formSuppliercrud")) {
             showLoading("Validando...");
 
             $.ajaxSetup({ cache: false });
             $.ajax({
                 ContentType: "application/json",
-                url: 'Permission/Validations',
+                url: 'Supplier/Validations',
                 type: 'POST',
                 data: obj,
                 success: function (data) {
@@ -81,18 +84,18 @@
                     }
                     else {
                         showLoading("Guardando...");
-                        ExecuteAjax("Permission/CreateOrUpdate", "Post", obj, "Permission.ResultSave");
+                        ExecuteAjax("Supplier/CreateOrUpdate", "Post", obj, "Supplier.ResultSave");
                     }
                 },
                 error: function (jqXHR, exception) {
-                    showAlert("No fue posible realizar la validación del permiso.", 'danger');
+                    showAlert("No fue posible realizar la validación del proveedor.", 'danger');
                     hideLoading();
                 }
             });
         }
     };
 
-    Permission.ResultSave = function (response) {
+    Supplier.ResultSave = function (response) {
         hideLoading();
         if (response.Success) {
             showAlert(response.Message, 'success');
@@ -100,8 +103,8 @@
             showAlert(response.Message, 'danger');
         }
         hideModalPartial();
-        Permission.Reload();
+        Supplier.Reload();
     };
 
-    return Permission;
+    return Supplier;
 })();

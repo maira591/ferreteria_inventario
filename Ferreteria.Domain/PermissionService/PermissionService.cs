@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ferreteria.Domain.LoadTypeService
+namespace Ferreteria.Domain.PermissionService
 {
     public class PermissionService(IUnitOfWork unitOfWork, IMapper mapper, ILogService logService) : IPermissionService
     {

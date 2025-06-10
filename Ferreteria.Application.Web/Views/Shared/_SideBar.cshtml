@@ -82,8 +82,8 @@
 		@if (listPrivileges.Contains(PrivilegesEnum.AdminCategory.ToString()))
 		{
 			hashMenu.Add(PrivilegesEnum.AdminCategory.ToString(), true);
-			<li class="nav-item" data-tippy-content="Gestionar categorías." id="nav-categories">
-				<a class="nav-link" href="@Url.Action("Index", "Categories")">
+			<li class="nav-item" data-tippy-content="Gestionar categorías." id="nav-category">
+				<a class="nav-link" href="@Url.Action("Index", "Category")">
 					<i class="fas fa-fw fa-tags"></i>
 					<span>Categorías</span>
 				</a>
@@ -95,8 +95,8 @@
 		@if (listPrivileges.Contains(PrivilegesEnum.AdminSupplier.ToString()))
 		{
 			hashMenu.Add(PrivilegesEnum.AdminSupplier.ToString(), true);
-			<li class="nav-item" data-tippy-content="Gestionar proveedores." id="nav-suppliers">
-				<a class="nav-link" href="@Url.Action("Index", "Suppliers")">
+			<li class="nav-item" data-tippy-content="Gestionar proveedores." id="nav-supplier">
+				<a class="nav-link" href="@Url.Action("Index", "Supplier")">
 					<i class="fas fa-fw fa-truck"></i>
 					<span>Proveedores</span>
 				</a>

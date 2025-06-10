@@ -1,0 +1,29 @@
+﻿using System;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ferreteria.Domain.ViewModel
+{
+    public class ProductVM
+    {
+        public int ProductId { get; set; }
+
+        public string Name { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
+
+        public decimal Price { get; set; }
+
+        public int StockQuantity { get; set; }
+
+        public int CategoryId { get; set; }
+
+        public CategoryVM Category { get; set; } = new();
+
+        public int SupplierId { get; set; }
+
+        public SupplierVM Supplier { get; set; } = new();
+
+    }
+}

@@ -1,8 +1,8 @@
 ﻿@using NonFactors.Mvc.Grid
 
 @{
-    ViewBag.Title = "Roles";
-    ViewBag.SubTitle = "Administración de los roles del sistema.";
+    ViewBag.Title = "Categorías";
+    ViewBag.SubTitle = "Administración de los categorías de productos del sistema.";
 }
 
 <link href="~/css/core/mvc-grid/mvc-grid.css" rel="stylesheet" />
@@ -21,8 +21,8 @@
                     <h4 class="card-title ">
                         @ViewBag.Title
                     </h4>
-                    <a href="#" onclick="Role.OpenCreate('@Url.Action("Create")');">
-                        <i class="fa fa-plus-circle addrecord" data-tippy-content="Nuevo Rol." tabindex="0"></i>
+                    <a href="#" onclick="Category.OpenCreate('@Url.Action("Create")');">
+                        <i class="fa fa-plus-circle addrecord" data-tippy-content="Nuevo Permiso." tabindex="0"></i>
                     </a>
                    
                 </div>
@@ -41,7 +41,7 @@
 
 <script src="~/js/core/MvcGrid/mvc-grid.js"></script>
 <script src="~/js/core/Petitions/Petitions.js"></script>
-<script src="~/js/core/Role/Role.js" asp-append-version="true"></script>
+<script src="~/js/core/Category/Category.js" asp-append-version="true"></script>
 <script src="~/js/jquery.unobtrusive-ajax.js"></script>
 
 
@@ -51,9 +51,8 @@
     <script type="text/javascript">
 
         $(function () {
-			$('#securityNav').addClass('active');
-			$('#security').addClass('show');
-			$('#nav-role').addClass('active');
+			$('#nav-category').addClass('active');
+			$('#nav-category').addClass('show');
         });        
 
         document.addEventListener('reloadend', function (e) {

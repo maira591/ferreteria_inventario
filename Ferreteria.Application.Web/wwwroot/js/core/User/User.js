@@ -1,33 +1,33 @@
-﻿var Permission = (function () {
-    function Permission() {
+﻿var User = (function () {
+    function User() {
 
     }
 
     //Método encargado de abrir la ventana para editar
-    Permission.OpenEdit = function (urlEdit) {
+    User.OpenEdit = function (urlEdit) {
+        showLoading();
         Petitions.Get(urlEdit, function (response) {
-            showLoading();
             $('#modal-partial-content').html(response);
             showModalResult();
-            setAlphanumericInput();
+            User.Init();
             hideLoading();
         });
     };
 
     //Método encargado de recargar la información
-    Permission.Reload = function () {
+    User.Reload = function () {
         new MvcGrid(document.querySelector('.mvc-grid')).reload();
     };
 
     //Método encargado de realizar el borrado.
-    Permission.Delete = function (url) {
+    User.Delete = function (url) {
         ShowModalQuestion('Advertencia', '¿Desea eliminar este registro?', function () {
             Petitions.Get(url, function (response) {
                 HideModalQuestion();
 
                 if (response.Success) {
                     showAlert(response.Message, 'success');
-                    Periodicity.Reload();
+                    User.Reload();
                 } else {
                     showAlert(response.Message);
                 }
@@ -37,14 +37,14 @@
 
 
     //Método encargado de realizar el borrado de un tipo de carga.
-    Permission.Disabled = function (url) {
+    User.Disabled = function (url) {
         ShowModalQuestion('Advertencia', '¿Desea eliminar este registro?', function () {
             Petitions.Get(url, function (response) {
                 HideModalQuestion();
 
                 if (response.Success) {
                     showAlert(response.Message, 'success');
-                    Permission.Reload();
+                    User.Reload();
                 } else {
                     showAlert(response.Message);
                 }
@@ -52,26 +52,26 @@
         });
     };
 
-    Permission.OpenCreate = function (url) {
+    User.OpenCreate = function (url) {
         showLoading();
         Petitions.Get(url, function (response) {
             $('#modal-partial-content').html(response);
             showModalResult();
-            setAlphanumericInput();
+            User.Init();
             hideLoading();
         });
     };
 
-    Permission.Save = function () {
-        var obj = getObject("formPermissioncrud");
+    User.Save = function () {
+        var obj = getObject("formUsercrud");
 
-        if (formValidation("formPermissioncrud")) {
+        if (formValidation("formUsercrud")) {
             showLoading("Validando...");
 
             $.ajaxSetup({ cache: false });
             $.ajax({
                 ContentType: "application/json",
-                url: 'Permission/Validations',
+                url: 'User/Validations',
                 type: 'POST',
                 data: obj,
                 success: function (data) {
@@ -81,7 +81,7 @@
                     }
                     else {
                         showLoading("Guardando...");
-                        ExecuteAjax("Permission/CreateOrUpdate", "Post", obj, "Permission.ResultSave");
+                        ExecuteAjax("User/CreateOrUpdate", "Post", obj, "User.ResultSave");
                     }
                 },
                 error: function (jqXHR, exception) {
@@ -92,7 +92,7 @@
         }
     };
 
-    Permission.ResultSave = function (response) {
+    User.ResultSave = function (response) {
         hideLoading();
         if (response.Success) {
             showAlert(response.Message, 'success');
@@ -100,8 +100,62 @@
             showAlert(response.Message, 'danger');
         }
         hideModalPartial();
-        Permission.Reload();
+        User.Reload();
     };
 
-    return Permission;
+
+    User.GetSelectedRole = function () {
+        var selectedOptions = $('#RoleId option:selected');
+        var ids = "";
+        selectedOptions.each(function (index, element) {
+            if (ids == "") {
+                ids = element.value;
+            }
+            else {
+                ids = ids + "," + element.value;
+            }
+        });
+        $("#Roles").val(ids);
+        return ids;
+    };
+
+    User.ValidatePeriodicitySelection = function () {
+        return User.GetSelectedRole().length > 0;
+    };
+
+
+    User.Init = function () {
+        setAlphanumericInput();
+
+        $('#RoleId').multiselect({
+            includeSelectAllOption: false,
+            maxHeight: 150,
+            onChange: function (option, checked) {
+                User.GetSelectedRole();
+            },
+            buttonTextAlignment: 'left',
+            buttonWidth: '100%'
+        });
+
+        if ($("#Roles").val() != "") {
+            User.SetPeriodicitySelection();
+        }
+    };
+
+    User.SetPeriodicitySelection = function () {
+        var split = $("#Roles").val().split(',');
+
+        for (var i = 0; i < split.length; i++) {
+            $('#RoleId option').each(function () {
+                if ($(this).val() === split[i]) {
+                    $(this).prop('selected', true);
+                    return;
+                }
+            });
+        };
+
+        $('#RoleId').multiselect('refresh');
+    };
+
+    return User;
 })();

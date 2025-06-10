@@ -425,10 +425,13 @@ function setInputRestriction() {
     $(".textNumber2").on("change", function () {
         validCharacter2(this);
     });
-
 }
 function validCharacter(control) {
     $(control).val($(control).val().replace(/[^a-zA-Z0-9]/g, ''));
+}
+
+function onlyInteger(control) {
+    $(control).val($(control).val().replace(/[^0-9]/g, ''));
 }
 function validCharacter2(control) {
     $(control).val($(control).val().replace(/[^a-zA-Z0-9_]/g, ''));

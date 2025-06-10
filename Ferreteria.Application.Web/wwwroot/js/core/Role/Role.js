@@ -63,7 +63,7 @@
     };
 
     Role.Save = function () {
-        var periodicity = getObject("formRolecrud");
+        var obj = getObject("formRolecrud");
 
         if (formValidation("formRolecrud")) {
             showLoading("Validando...");
@@ -73,7 +73,7 @@
                 ContentType: "application/json",
                 url: 'Role/Validations',
                 type: 'POST',
-                data: periodicity,
+                data: obj,
                 success: function (data) {
                     if (!data.Valid) {
                         hideLoading();
@@ -81,7 +81,7 @@
                     }
                     else {
                         showLoading("Guardando...");
-                        ExecuteAjax("Role/CreateOrUpdate", "Post", periodicity, "Role.ResultSave");
+                        ExecuteAjax("Role/CreateOrUpdate", "Post", obj, "Role.ResultSave");
                     }
                 },
                 error: function (jqXHR, exception) {
