@@ -11,7 +11,5 @@ namespace Ferreteria.Domain.ViewModel
         public string Contact { get; set; } = string.Empty;
 
         public string Address { get; set; } = string.Empty;
-
-        public List<ProductVM> Products { get; set; } = new();
     }
 }

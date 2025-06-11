@@ -13,7 +13,9 @@ namespace Ferreteria.Application.Website.Utils
         {
             string pathBase = string.IsNullOrWhiteSpace(Request.PathBase) ? string.Empty : Request.PathBase + "/";
             Uri location = new Uri($"{Request.Scheme}://{Request.Host}{pathBase}");
-            return location.AbsoluteUri;
+            //return location.AbsoluteUri;
+
+            return "https://q86x597w-7042.use.devtunnels.ms/";
         }
 
         public static List<SelectListItem> LoadList<T>(List<T> list, string text, string value, string selectedValue = "")

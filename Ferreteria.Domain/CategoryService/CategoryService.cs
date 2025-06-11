@@ -15,22 +15,22 @@ namespace Ferreteria.Domain.CategoryService
     public class CategoryService(IUnitOfWork unitOfWork, IMapper mapper, ILogService logService) : ICategoryService
     {
         #region Methods
-        public async Task AddOrUpdateAsync(CategoryVM permission)
+        public async Task AddOrUpdateAsync(CategoryVM category)
         {
             const string action = "Category AddOrUpdateAsync";
 
             try
             {
                 logService.Add(LogKey.Begin, action);
-                var permissionDataAccess = mapper.Map<Category>(permission);
+                var categoryDataAccess = mapper.Map<Category>(category);
 
-                if (permission.CategoryId != default)
+                if (category.CategoryId != default)
                 {
-                    unitOfWork.Repository<Category>().Update(permissionDataAccess);
+                    unitOfWork.Repository<Category>().Update(categoryDataAccess);
                 }
-                unitOfWork.Repository<Category>().AddOrUpdate(permissionDataAccess);
+                unitOfWork.Repository<Category>().AddOrUpdate(categoryDataAccess);
 
-                logService.Add(LogKey.Request, JsonConvert.SerializeObject(permissionDataAccess));
+                logService.Add(LogKey.Request, JsonConvert.SerializeObject(categoryDataAccess));
                 await unitOfWork.SaveChangesAsync();
             }
             catch (Exception e)
@@ -66,10 +66,10 @@ namespace Ferreteria.Domain.CategoryService
         {
             try
             {
-                var permissionDataAccess = (await unitOfWork.Repository<Category>().GetAsync()).ToList();
+                var categoryDataAccess = (await unitOfWork.Repository<Category>().GetAsync()).ToList();
 
-                var permissions = mapper.Map<List<Category>, List<CategoryVM>>(permissionDataAccess);
-                return permissions;
+                var categorys = mapper.Map<List<Category>, List<CategoryVM>>(categoryDataAccess);
+                return categorys;
             }
             catch (Exception ex)
             {
@@ -85,17 +85,17 @@ namespace Ferreteria.Domain.CategoryService
 
         public async Task<CategoryVM> GetByIdAsync(int id)
         {
-            var permissionDataAccess = await unitOfWork.Repository<Category>().FindAsync(id);
+            var categoryDataAccess = await unitOfWork.Repository<Category>().FindAsync(id);
 
-            var permission = mapper.Map<CategoryVM>(permissionDataAccess);
-            return permission;
+            var category = mapper.Map<CategoryVM>(categoryDataAccess);
+            return category;
         }
 
-        public async Task<string> Validations(CategoryVM permission)
+        public async Task<string> Validations(CategoryVM category)
         {
             string validation = string.Empty;
 
-            if ((await unitOfWork.Repository<Category>().GetAsync(x => x.CategoryId != permission.CategoryId && x.Name.ToUpper() == permission.Name.Trim().ToUpper())).Any())
+            if ((await unitOfWork.Repository<Category>().GetAsync(x => x.CategoryId != category.CategoryId && x.Name.ToUpper() == category.Name.Trim().ToUpper())).Any())
             {
                 validation = "El nombre ingresado ya existe.";
             }

@@ -15,22 +15,22 @@ namespace Ferreteria.Domain.SupplierService
     public class SupplierService(IUnitOfWork unitOfWork, IMapper mapper, ILogService logService) : ISupplierService
     {
         #region Methods
-        public async Task AddOrUpdateAsync(SupplierVM permission)
+        public async Task AddOrUpdateAsync(SupplierVM supplier)
         {
             const string action = "Supplier AddOrUpdateAsync";
 
             try
             {
                 logService.Add(LogKey.Begin, action);
-                var permissionDataAccess = mapper.Map<Supplier>(permission);
+                var supplierDataAccess = mapper.Map<Supplier>(supplier);
 
-                if (permission.SupplierId != default)
+                if (supplier.SupplierId != default)
                 {
-                    unitOfWork.Repository<Supplier>().Update(permissionDataAccess);
+                    unitOfWork.Repository<Supplier>().Update(supplierDataAccess);
                 }
-                unitOfWork.Repository<Supplier>().AddOrUpdate(permissionDataAccess);
+                unitOfWork.Repository<Supplier>().AddOrUpdate(supplierDataAccess);
 
-                logService.Add(LogKey.Request, JsonConvert.SerializeObject(permissionDataAccess));
+                logService.Add(LogKey.Request, JsonConvert.SerializeObject(supplierDataAccess));
                 await unitOfWork.SaveChangesAsync();
             }
             catch (Exception e)
@@ -66,10 +66,10 @@ namespace Ferreteria.Domain.SupplierService
         {
             try
             {
-                var permissionDataAccess = (await unitOfWork.Repository<Supplier>().GetAsync()).ToList();
+                var supplierDataAccess = (await unitOfWork.Repository<Supplier>().GetAsync()).ToList();
 
-                var permissions = mapper.Map<List<Supplier>, List<SupplierVM>>(permissionDataAccess);
-                return permissions;
+                var suppliers = mapper.Map<List<Supplier>, List<SupplierVM>>(supplierDataAccess);
+                return suppliers;
             }
             catch (Exception ex)
             {
@@ -85,17 +85,17 @@ namespace Ferreteria.Domain.SupplierService
 
         public async Task<SupplierVM> GetByIdAsync(int id)
         {
-            var permissionDataAccess = await unitOfWork.Repository<Supplier>().FindAsync(id);
+            var supplierDataAccess = await unitOfWork.Repository<Supplier>().FindAsync(id);
 
-            var permission = mapper.Map<SupplierVM>(permissionDataAccess);
-            return permission;
+            var supplier = mapper.Map<SupplierVM>(supplierDataAccess);
+            return supplier;
         }
 
-        public async Task<string> Validations(SupplierVM permission)
+        public async Task<string> Validations(SupplierVM supplier)
         {
             string validation = string.Empty;
 
-            if ((await unitOfWork.Repository<Supplier>().GetAsync(x => x.SupplierId != permission.SupplierId && x.Name.ToUpper() == permission.Name.Trim().ToUpper())).Any())
+            if ((await unitOfWork.Repository<Supplier>().GetAsync(x => x.SupplierId != supplier.SupplierId && x.Name.ToUpper() == supplier.Name.Trim().ToUpper())).Any())
             {
                 validation = "El nombre ingresado ya existe.";
             }

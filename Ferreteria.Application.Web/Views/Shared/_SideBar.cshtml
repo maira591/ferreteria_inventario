@@ -69,8 +69,8 @@
 		@if (listPrivileges.Contains(PrivilegesEnum.AdminProduct.ToString()))
 		{
 			hashMenu.Add(PrivilegesEnum.AdminProduct.ToString(), true);
-			<li class="nav-item" data-tippy-content="Gestionar productos." id="nav-products">
-				<a class="nav-link" href="@Url.Action("Index", "Products")">
+			<li class="nav-item" data-tippy-content="Gestionar productos." id="nav-product">
+				<a class="nav-link" href="@Url.Action("Index", "Product")">
 					<i class="fas fa-fw fa-box"></i>
 					<span>Productos</span>
 				</a>

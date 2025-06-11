@@ -9,7 +9,5 @@ namespace Ferreteria.Domain.ViewModel
         public string Name { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
-
-        public List<ProductVM> Products { get; set; } = new();
     }
 }

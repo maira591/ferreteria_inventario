@@ -17,12 +17,24 @@ namespace Ferreteria.DataAccess.Model
         [Column("product_id")]
         public int ProductId { get; set; }
 
+        [Column("product_code")]
+        public string ProductCode { get; set; }
+
         [Column("name")]
         [Required]
         public string Name { get; set; } = string.Empty;
 
         [Column("description")]
         public string Description { get; set; } = string.Empty;
+
+        [Column("unit")]
+        public string Unit { get; set; } = string.Empty;
+
+        [Column("brand")]
+        public string Brand { get; set; } = string.Empty;
+            
+        [Column("is_enabled")]
+        public bool IsEnabled { get; set; }
 
         [Column("price")]
         public decimal Price { get; set; }

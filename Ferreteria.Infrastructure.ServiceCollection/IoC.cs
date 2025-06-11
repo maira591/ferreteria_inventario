@@ -4,6 +4,7 @@ using Ferreteria.Domain.CategoryService;
 using Ferreteria.Domain.LoginService;
 using Ferreteria.Domain.LogService;
 using Ferreteria.Domain.PermissionService;
+using Ferreteria.Domain.ProductService;
 using Ferreteria.Domain.RolePermissionService;
 using Ferreteria.Domain.RoleService;
 using Ferreteria.Domain.SupplierService;
@@ -30,6 +31,7 @@ namespace Ferreteria.Infrastructure.ServiceCollection
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
         }
     }
 }

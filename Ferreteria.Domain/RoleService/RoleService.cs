@@ -55,7 +55,7 @@ namespace Ferreteria.Domain.RoleService
 
         public async Task DeleteAsync(int id)
         {
-            bool isUsedPermit = (await unitOfWork.Repository<RolePermission>().GetAsync(x => x.RoleId == id)).Any();
+            bool isUsedPermit = (await unitOfWork.Repository<UserRole>().GetAsync(x => x.RoleId == id)).Any();
 
             if (!isUsedPermit)
             {

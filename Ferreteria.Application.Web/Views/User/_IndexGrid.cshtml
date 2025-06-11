@@ -11,7 +11,7 @@
     columns.Add(c => c.Email).Titled("Correo").UsingDefaultFilterMethod("contains");
     columns.Add(c => c.IsEnabled).Titled("Activo").RenderedAs(x => x.IsEnabled ? "SI" : "NO");
     columns.Add(c => c.RolesNames).Titled("Roles").UsingDefaultFilterMethod("contains");
-    columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key' tabindex='0' data-tippy-content='Editar' onclick=\"User.OpenEdit('{urlEdit}?id={s.UserId}');\"></i> <i class='fa fa-trash btn-lg text-danger-icon gel-tab-key' tabindex='0' data-tippy-content='Eliminar' style='margin-left:8px' onclick=\"User.Disabled('{urlDelete}?id={s.UserId}')\"></i></div>").Encoded(false);
+    columns.Add().Titled("Acciones").RenderedAs(s => $"<div class='form-inline'><i class='fa fa-edit btn-lg text-primary-icon gel-tab-key' tabindex='0' data-tippy-content='Editar' onclick=\"User.OpenEdit('{urlEdit}?id={s.UserId}');\"></i></div>").Encoded(false);
 }).Empty("No se encontraron datos").Filterable().Sortable().Id("my-ajax-grid")
                                         .Pageable(pager =>
                                         {
